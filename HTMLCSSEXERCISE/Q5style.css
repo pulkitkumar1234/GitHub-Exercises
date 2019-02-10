@@ -1,0 +1,25 @@
+#employee{
+  width: 50%;
+  border-collapse: collapse;;
+}
+
+#employee td, #employee th{
+  border: 5px solid pink;
+color:white;
+}
+
+#employee tr:nth-child(even){
+  background-color: red;
+}
+#employee tr:nth-child(odd){
+  background-color: green;
+}
+
+
+#employee th{
+  text-align: center;
+  background-color: yellow;
+  color:blue;
+  border-style: dotted;
+  padding: 10px;
+}
