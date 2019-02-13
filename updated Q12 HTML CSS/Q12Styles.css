@@ -1,0 +1,151 @@
+.container{
+  width: 100%;
+  height: 100%;
+}
+.Header{
+height:40px;
+}
+#ttn{
+  color:green;
+}
+#ttn, #nav {
+  width: 50%;
+  float: left;
+  font-size: 25px
+}
+
+#nav {
+  text-align: right;
+
+}
+ #nav a{
+   text-decoration: none;
+   color: green;
+ }
+
+
+.middle{
+  width: 40%;
+  margin: 0px auto;
+  height:80%;
+  border: 1px solid grey;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  }
+
+.top
+{
+  background: grey;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding-left:20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  }
+#form
+{
+  margin-left: 20px;
+  width:100%;
+  height:60%;
+}
+
+.rd {
+  width: 50%;
+  float: left;
+}
+.b{
+  width:50%;
+  float: left;
+}
+
+.bottom{
+  width: 100%;
+  position: relative;;
+  height: 30px;
+  margin-top: 10px;
+  background: grey;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  }
+.bottom div {
+  width: 20%;
+  float: right;
+}
+#title{
+  border-radius: 10px;
+  margin: 2% 2% 2% 0%;
+  width: 90%;
+  height: 30px;
+
+}
+#Description
+{
+  border-radius: 10px;
+  margin: 2% 2% 2% 0%;
+  width: 90%;
+  height: 50px;
+
+}
+
+#os{
+  border-radius: 10px;
+  margin: 2% 2% 2% 0%;
+  width: 90%;
+  height: 30px;
+  background-color: green;
+  color: white;
+
+
+}
+#product{
+  border-radius: 10px;
+  margin: 2% 2% 2% 0;
+  width: 90%;
+  height: 30px;
+  background-color: green;
+  color: white;
+
+
+}
+#version{
+  border-radius: 10px;
+  margin: 2% 2% 2% 0%;
+  width: 40%;
+  height: 30px;
+
+}
+#severity{
+  border-radius: 10px;
+  margin: 2% 2% 2% 0%;
+  width: 90%;
+  height: 30px;
+  background-color: green;
+  color: white;
+
+
+}
+.head{
+  font-size: 18px;
+  padding-top: 4%;
+}
+.head version{
+
+}
+#buttons{
+  position: absolute;
+  background-color: green;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  float: right;
+}

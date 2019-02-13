@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link href="Q12Styles.css" type="text/css" rel="stylesheet">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="Header">
+          <div id="ttn">TO THE NEW</div>
+          <div id="nav"><a href="">Home</a> <a href="">Quick Link</a></div>
+      </div>
+      <hr>
+      <div class="middle">
+              <div class="top">
+                <h1>Bug Report</h1>
+              </div>
+              <div id="form">
+                <label for="title" class="head">Title:</label><br/>
+                <input type="text" id="title" name="title" ><br/>
+
+                <label for="Description" class="head">Description:</label><br/>
+                <textarea name="Description" rows="8" cols="80" id="Description"></textarea>
+                <br/>
+
+                <label for="os" class="head">Operating System:</label><br/>
+                <select class="drop" name="os" id="os">
+                <option value="Windows XP">Windows XP</option>
+                <option value="Windows 7">Windows 7</option>
+                <option value="Windows 10">Windows 10</option>
+                </select>
+
+                <br/>
+
+                <label for="product" class="head">Product:</label> <br>
+                  <select class="drop" name="product" id="product">
+                  <option value="Product1">Product1</option>
+                  <option value="Product2">Product2</option>
+                  <option value="Product3">Product3</option>
+                  </select> <br>
+
+                <label for="version" class="head">Version</label><br>
+                  <input type="text" name="Version" id="version" ><br/>
+                  <label for="license" class="head">License:*</label></br/>
+                  <div class="rd"><input type="radio" name="license" >Free</div>
+                  <div class="rd"><input type="radio" name="license" >Business</div>
+
+                <br/>
+                <label for="severity" class="head">Severity:*</label></br/>
+                  <select id="severity" name="severity" >
+                  <option value="Critical">Critical</option>
+                  <option value="Critical">Critical2</option>
+                  <option value="Critical">Critical3</option>
+                  </select>
+                <br/>
+                <label for="attachment" class="head">Attachments:</label><br>
+                <input type="text" name="attachmentname" value="No file Selected">
+                <input type="file" name="attachfile" value="">
+              </div>
+
+              <div class="bottom">
+                <div><input type="submit" id="buttons" name="submit" value="Send" align="right"></div>
+              </div>
+
+        </div>
+
+    </div>
+
+  </body>
+</html>
