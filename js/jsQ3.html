@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script type="text/javascript">
+      function calArea()
+      {
+        var r = document.getElementById("rad").value;
+        if(isNaN(r) || r =='')
+        {
+          alert("Ente Numeric Value");
+        }
+        var a=3.14*r*r;
+        document.getElementById("res").innerHTML="Area of Circle:" + a;
+
+      }
+    </script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<p>Enter Radius of circle:</p>
+<input type="text" id="rad">
+<button type="button" name="button" onclick="calArea()">Calculate Area</button>
+<p id="res"></p>
+  </body>
+</html>

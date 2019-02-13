@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script type="text/javascript">
+    var obj={
+      "a":2,
+      "b"=3,
+      "c":
+      {
+        "x":7,
+        "y"=4
+      }
+    }
+
+    function DeepCopy(obj)
+    {
+      var obj2 = {};
+      var key;
+      for(key in obj)
+      {
+        obj2[key]=obj[key];
+      }
+      retun obj2;
+    }
+    </script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+</html>

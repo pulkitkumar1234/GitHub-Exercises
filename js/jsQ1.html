@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script type="text/javascript">
+      function calculate()
+      {
+           var p = document.getElementById("principal").value;
+           if (isNaN(p) || p=='')
+           {
+             alert("Not A number Or Empty")
+           }
+           var r = document.getElementById("rate").value;
+           if (isNaN(r) || r =='')
+           {
+             alert("Not A number Or Empty")
+           }
+           var t = document.getElementById("time").value;
+
+           if (isNaN(t) || t=='')
+           {
+             alert("Not A number Or Empty")
+           }
+           var rest = document.getElementById("res");
+           var res=p*r*t/100;
+           rest.innerHTML="Interest is:" +res;
+      }
+    </script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+Enter Principal: <input type="text" id="principal">
+Enter Rate:<input type="text" id="rate">
+Enter Time in Years:<input type="text" id="time">
+<button type="button" onclick="calculate()">Calculate Interest</button>
+<p id="res"></p>
+  </body>
+</html>

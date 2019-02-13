@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+    var letter=/^[a-zA-Z]+$/;
+      function fCp()
+      {
+  var string=document.getElementById("str").value;
+
+  if(string.value.match(/^[a-zA-Z]+$/))
+  {
+  alert('Input must be a String');
+}
+
+  if(string.length>=2)
+  {
+    var res=cp(string,string.length);
+    if(res==true)
+    {
+      document.getElementById("result").innerHTML="Palindrome";
+    }
+    else
+    {
+      document.getElementById("result").innerHTML="Not Palindrome";
+    }
+  }
+  function cp(s, sl)
+  {
+    cRev=sl-1;
+    for(i=0;i<sl;i++,cRev--)
+    {
+      if(s[i]==s[cRev])
+      {
+
+      }
+      else{
+        return false;
+      }
+    }
+    return true;
+  }
+      }
+    </script>
+
+    <title></title>
+  </head>
+  <body>
+    <p >Enter String To check Palindrome:</p>
+    <input type="text" id="str">
+    <button type="button" name="button" onclick="fCp()">Check Palindrome</button>
+    <p id="result"></p>
+  </body>
+</html>

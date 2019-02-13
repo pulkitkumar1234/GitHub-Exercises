@@ -1,0 +1,103 @@
+<html lang="en" dir="ltr">
+  <head>
+    <script type="text/javascript">
+    var emp={};
+    var c=0;
+    var emps=new Array();
+      function obj()
+      {
+      var  n = document.getElementById("name").value;
+      var  a = document.getElementById("age").value;
+      var  s = document.getElementById("salary").value;
+      var  dob = document.getElementById("dob").value;
+
+      //alert(a+""+n+""+s+""+dob);
+        emp[c]={
+          "Name":n,
+          "Age":a,
+          "Salary":s,
+          "DOB":dob
+        };
+        console.log(emp[c]);
+        c++;
+        document.getElementById("name").value='';
+        document.getElementById("age").value='';
+        document.getElementById("salary").value='';
+        document.getElementById("dob").value='';
+       }
+
+       function f1()
+       {
+           for(var key in emp){
+
+           if(emp[key].Salary >= 5000)
+           {
+             document.getElementById("S5000").innerHTML=document.getElementById("S5000").innerHTML+"<br />Employee having Salary Greater than 5000:"+ emp[key].Name;
+           }<!--Again and again printing same records-->
+         }
+      }
+
+       function f2()
+       {
+              for(var i in emp){
+                if(emp[i].age in emps){
+                  emps[emp[i].age].push(emp[i]);
+                }else{
+                  let arr=new Array();
+                  arr.push(emp[i]);
+                  emps[emp[i].age]=arr;
+                }
+              }
+              console.log(emp);
+
+       }
+       function f3()
+       {
+              for(var key in emp)
+              {
+                if(emp[key].Salary < 1000  && emp[key].Age > 20)
+                {
+                  emp[key].Salary=(parseInt(emp[key].Salary) + parseInt(emp[key].Salary))*5;
+                  document.getElementById("into5").innerHTML=document.getElementById("into5").innerHTML+"<br/>Increments for Employees:"+ emp[key].Name;
+                }
+              }
+
+         }
+
+    </script>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <p>Employee Details:</p>
+    <p>Name:</p>
+    <br/>
+    <input type="text" id="name">
+    <br>
+    <p>Age:</p>
+    <br />
+    <input type="text" id="age"><br>
+    <p>Salary:</p>
+    <br/>
+    <input type="number" id="salary">
+    <br>
+    <p>DOB:</p>
+    <br/>
+    <input type="text" id="dob"><br><br>
+    <button type="button" name="button" onclick="obj()">Submit</button>
+
+    <p id="S5000">Click here to know Whose salary is Greater than 5000:<br></p>
+    <button type="button" name="button" onclick="f1()">Click Me</button>
+
+    <p >Click Here To Group People on the basis of there Age:<br></p>
+    <button type="button" name="button" onclick="f2()">Click Me</button>
+
+    <p >Click Here to fetch employees with salary less than 1000 and </p>
+    <p>age greater than 20 and to give them an increment 5 times their salary.</p>
+    <br>
+    <p id="into5"></p>
+    <br>
+    <button type="button" name="button" onclick="f3()">Click Me</button>
+
+  </body>
+</html>
