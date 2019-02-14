@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Font Change</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+	width: 80%;
+	margin: 0px auto;
+}
+.target {
+	font-size: 15px;
+	color: red;
+}
+</style>
+<script lang="javascript">
+
+$(document).ready(function(){
+$("#main > .target").css('font-size','20px');
+});
+
+</script>
+</head>
+<body>
+<div id="main">
+	<p class="target">Child of main with target class.</p>
+	<p>Child without target class<p>
+</div>
+<p class="target">Other element with class target.</target>
+</body>
+</html>

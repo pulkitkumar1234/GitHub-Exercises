@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Open Link Disable</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+	width: 80%;
+	margin: 0px auto;
+}
+p {
+	color: Tomato;
+	font-size: 20px;
+}
+</style>
+<script lang="javascript">
+
+$(document).ready(function(){
+
+$('#openlink').on("click", function(e) {
+	e.preventDefault();
+	alert('This link is disabled.'); 
+});
+
+});
+
+
+</script>
+</head>
+<body>
+<br />
+<p>Click on <a id="openlink" href="https://www.google.com">Google</a> to open google.com </p>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Highlight Cells</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+	width: 80%;
+	margin: 0px auto;
+}
+span {
+	background-color: slateBlue;
+	color: white;
+	font-weight: 900;
+}
+
+</style>
+<script lang="javascript">
+
+$(document).ready(function(){
+
+var large = null;
+$("td").each(function(){
+  var h = $(this).text();
+  if(parseInt(h) > 10){
+     large = $(this);  
+  }
+  large.css("background-color", "slateBlue"); 
+  large.css("color", "white");    
+});
+
+
+});
+
+
+</script>
+</head>
+<body>
+<br />
+<p>Table cell value with greater than 10 is highlighted in colour.</p>
+<table border="1px">
+	<tr>
+		<td>15</td>
+		<td>8</td>
+		<td>1</td>
+		<td>11</td>	
+	</tr>
+	<tr>
+		<td>15</td>
+		<td>8</td>
+		<td>1</td>
+		<td>7</td>	
+	</tr>
+	<tr>
+		<td>5</td>
+		<td>8</td>
+		<td>99</td>
+		<td>2</td>	
+	</tr>
+	<tr>
+		<td>11</td>
+		<td>81</td>
+		<td>1</td>
+		<td>3</td>	
+	</tr>
+</table>
+</body>
+</html>

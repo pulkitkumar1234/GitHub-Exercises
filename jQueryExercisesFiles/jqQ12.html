@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Parent-Child Div Click</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+	width: 80%;
+	margin: 0px auto;
+}
+#parent {
+	width: 200px;
+	height: 200px;
+	background-color: Tomato;
+}
+#child {
+	width: 100px;
+	height: 100px;
+	background-color: Green;
+	margin: 50px auto;
+}
+</style>
+<script lang="javascript">
+
+$(document).ready(function(){
+
+$('#parent').on("click", function(e) {
+	e.stopPropagation();
+	alert('Parents Clicked!');
+});
+$('#child').on('click', function(e) {
+    // clicked on descendant div
+  e.stopPropagation();
+			alert('child Clicked!');
+});
+
+});
+
+
+</script>
+</head>
+<body>
+<br />
+<div id="parent">This is parent div.
+	<div id="child">This is child div.
+	</div>
+</div>
+</body>
+</html>

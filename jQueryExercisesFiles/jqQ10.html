@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Dropdown</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+	width: 80%;
+	margin: 0px auto;
+}
+p {
+	color: red;
+	font-size: 20px;
+}
+</style>
+<script lang="javascript">
+
+$(document).ready(function(){
+
+$('#container').hover(function(e) {
+	$('body').append("<select name='dd'><option id='1'>first data</option><option id='2'>second data</option></select>");
+});
+});
+
+
+</script>
+</head>
+<body>
+<br />
+<p id="container">Hover to Create DropDown List</p>
+</body>
+</html>

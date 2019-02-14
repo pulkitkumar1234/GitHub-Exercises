@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Click Event on Dynamic Elements</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+	width: 80%;
+	margin: 0px auto;
+}
+p {
+	color: Tomato;
+	font-size: 20px;
+}
+</style>
+<script lang="javascript">
+
+$(document).ready(function(){
+
+$("#message").append('<br /><p id="link">Click Here</p>');
+
+$("#link").on("click", function(e) {
+	alert('Testing Click Event.');
+});
+});
+</script>
+</head>
+<body>
+<br />
+<p id="message">Click Event On Dynamic Contents Like <a> Tag.</p>
+
+</body>
+</html>

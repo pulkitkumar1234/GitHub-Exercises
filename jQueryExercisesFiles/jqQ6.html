@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Element Type Change</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+	width: 80%;
+	margin: 0px auto;
+}
+div {
+	color: Tomato;
+}
+</style>
+<script lang="javascript">
+
+$(document).ready(function(){
+
+$('div').css("background-color","red");
+$("div").replaceWith(function(){
+   return $("<p />").append($(this).contents());
+});
+
+});
+
+
+</script>
+</head>
+<body>
+<div id="contentONE">Content are written inside this element.</div>
+<div id="contentTWO">Content are written inside this element</div>
+<div id="contentTHREE">Content are written inside this element</div>
+<div id="contentFOUR">Content are written inside this element</div>
+<div id="contentFIVE">Content are written inside this element</div>
+</body>
+</html>

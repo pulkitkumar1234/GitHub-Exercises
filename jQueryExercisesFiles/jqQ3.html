@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Colour Change</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+	width: 80%;
+	margin: 0px auto;
+}
+.head-new, .main-head, .bottom-new {
+	color: Blue;
+	font-size: 20px;
+
+}
+</style>
+<script lang="javascript">
+
+$(document).ready(function(){
+$("[class$=-new]").css("color","red");
+});
+
+</script>
+</head>
+<body>
+<h1 class="head-new">Top Heading</h1>
+<h2 class="main-head">Bottom Heading</h2>
+<h3 class="bottom-new">Heading</h3>
+</body>
+</html>

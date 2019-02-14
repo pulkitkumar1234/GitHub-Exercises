@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Content Append on Click</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+	width: 80%;
+	margin: 0px auto;
+}
+div {
+	color: red;
+}
+</style>
+<script lang="javascript">
+
+$(document).ready(function(){
+
+$("#content").click(function(){
+        $('#content').append(' click');
+});
+
+});
+
+
+</script>
+</head>
+<body>
+<br />
+<div id="content">click</div>
+</body>
+</html>

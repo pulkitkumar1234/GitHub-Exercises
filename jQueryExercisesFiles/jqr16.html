@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<table border="1">
+	<tr id="row1">
+		<td>
+			abc
+		</td>
+		<td>
+			<input type="button"  value="X" id="1">
+		</td>
+	</tr>
+<tr id="row2">
+
+	<td>def</td>
+		<td>
+			<input type="button"  value="X" id="2">
+		</td>
+	</tr>
+
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script lang="javascript">
+
+$(document).ready(function () {
+
+
+$(":button").click(function(){
+	bid=$(this).attr("id");
+	bid="#row"+bid;
+	$.ajax({url:"https://jsonplaceholder.typicode.com/todos/1",success: function(result){
+		$(bid).remove();
+	}});
+});
+
+});
+
+</script>
+
+</body>
+</html>

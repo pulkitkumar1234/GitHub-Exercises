@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Maximum Height of Element</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+	width: 80%;
+	margin: 0px auto;
+}
+span {
+	background-color: slateBlue;
+	color: white;
+	font-weight: 900;
+}
+#head {
+	width: 200px;
+	height: 110px;
+	background: Tomato;
+}
+#content {
+	width: 200px;
+	height: 140px;
+	background: Tomato;
+}
+#menu {
+	width: 200px;
+	height: 150px;
+	background: Tomato;
+}
+#foot {
+	width: 200px;
+	height: 70px;
+	background: Tomato;
+}
+</style>
+<script lang="javascript">
+
+$(document).ready(function(){
+
+var large = null;
+var hi = 0;
+$("div").each(function(){
+  var h = $(this).height();
+  if(h > hi){
+     hi = h;
+     large = $(this);
+  }
+});
+large.css("background-color", "slateBlue");
+
+
+});
+
+
+</script>
+</head>
+<body>
+<br />
+<p>Element with max height is displayed in <span>slateBlue</span> colour.</p>
+<div id="head">
+	This is head div.<br />Height: 110px
+</div>
+<div id="content">
+	This is content div.<br />Height: 140px
+</div>
+<div id="menu">
+	This is menu div.<br />Height: 150px
+</div>
+<div id="foot">
+	This is foot div.<br />Height: 70px
+</div>
+</body>
+</html>
