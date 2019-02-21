@@ -1,3 +1,10 @@
+class A
+
+{
+
+    // some code
+
+}
 public class Third {
 
     public void ClassnotFoundFun()
@@ -14,6 +21,8 @@ public class Third {
 
             e.printStackTrace();
 
+        }finally {
+            A a = new A();
         }
     }
 
@@ -21,14 +30,8 @@ public class Third {
         Third sc=new Third();
         sc.ClassnotFoundFun();
 
-        A a = new A();
+
     }
 }
-class A
 
-{
-
-    // some code
-
-}
 
