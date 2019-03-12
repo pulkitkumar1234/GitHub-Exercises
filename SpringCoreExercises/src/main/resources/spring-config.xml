@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="tea" class="DIProblem.Tea"/>
+    <bean id="tea1" class="DIProblem.Tea"/>
+    <bean id="coffee" class="DIProblem.Coffee" />
+    <bean id="restaurent" class="DIProblem.Restaurent">
+        <constructor-arg ref="tea" />
+        <constructor-arg name="name" value="Tea"/>  <!--// USING CONSTRUCTOR-->
+        <!--<constructor-arg ref="coffee" />-->
+        <property name="age" value="20"/>   <!--///setter AND GETTER-->
+        <property name="beverages">
+            <list>
+                <value>ABCD</value>
+            </list>
+        </property>
+
+    </bean>
+
+    <bean
+            class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+</beans>
