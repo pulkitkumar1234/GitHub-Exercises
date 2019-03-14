@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config />
+    <context:component-scan  base-package="SpringCoreExercises"/>
+
+    <bean id="database" class="SpringCoreExercises.DataBase">
+        <property name="name" value="Test" />
+        <property name="port" value="8080" />
+
+    </bean>
+
+
+
+    <bean id="tea" class="SpringCoreExercises.Tea" />
+    <bean id="expressTea" class="SpringCoreExercises.ExpressTea" />
+
+    <bean name="ExpressteaRestaurant" class="SpringCoreExercises.Restaurent">
+        <property name="hotDrink" ref="expressTea" />
+    </bean>
+
+
+
+    <bean name="teaRestaurant4" class="SpringCoreExercises.Restaurent">
+        <property name="hotDrink" >
+            <bean name="ExpressTeaRestaurent" class="SpringCoreExercises.ExpressTea"/>
+        </property>
+    </bean>
+
+
+
+    <bean name="teaRestaurant" class="SpringCoreExercises.Restaurent" autowire="byName">
+        <property name="hotDrink" ref="tea" />
+        <constructor-arg ref="tea"/>
+
+    </bean>
+
+    <bean name="teaRestaurant1" class="SpringCoreExercises.Restaurent" autowire="byType">
+        <property name="hotDrink" ref="tea" />
+        <constructor-arg ref="tea"/>
+        <property name="tea" ref="tea"></property>
+
+    </bean>
+
+    <bean name="teaRestaurant2" class="SpringCoreExercises.Restaurent" autowire="constructor" scope="prototype">
+        <constructor-arg ref="tea"/>
+        <property name="hotDrink" ref="tea" />
+
+    </bean>
+
+
+    <bean id="complex" class="SpringCoreExercises.Complex">
+        <property name="list">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>i3</value>
+                <value>i4</value>
+                <value>i5</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key ="1" value="i3"></entry>
+                <entry key ="2" value="i4"></entry>
+                <entry key ="3" value="i5"></entry>
+
+            </map>
+        </property>
+    </bean>
+
+
+
+</beans>
