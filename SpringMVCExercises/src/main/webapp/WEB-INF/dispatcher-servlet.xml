@@ -31,8 +31,6 @@
     <!--QUESTION 2-->
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
 
-
-
     <bean  class="com.spring.exercise.controller.MultipleController"/>
 </beans>
 

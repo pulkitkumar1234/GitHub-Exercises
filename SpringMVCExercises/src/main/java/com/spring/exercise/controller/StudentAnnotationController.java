@@ -1,8 +1,11 @@
 package com.spring.exercise.controller;
 
+/*
 import com.sun.org.apache.xpath.internal.operations.Mod;
+*/
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -65,12 +68,19 @@ public class StudentAnnotationController {
     void addHeading(Model model){
         model.addAttribute("heading","Spring MVC Demo");
     }
+
     /*QUESTION 9*/
     @ResponseBody
     @RequestMapping("/submitStudent")
-    ModelAndView submitObject(Student student){
+    ModelAndView submitObject(@ModelAttribute("student") Student student, BindingResult result){
+
+        if(result.hasErrors()){
+            ModelAndView modelAndView1=new ModelAndView("student");
+            return modelAndView1;
+        }
+
         ModelAndView modelAndView = new ModelAndView("submitted");
-        modelAndView.addObject(student.getFirstName() + " " + student.getLastName());
+        modelAndView.addObject(student.getFirstName() + " " + student.getLastName()+" "+student.getPassword());
         System.out.println(student.getFirstName() + " " + student.getLastName());
         //modelAndView.addObject(student);
         return modelAndView;

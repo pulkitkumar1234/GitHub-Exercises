@@ -14,6 +14,8 @@
   </head>
   <body>
 <h1>Hello World </h1>
-
+<a href="/student">Student Form</a><br>
+<a href="/multiple/dummy">Dummy in Multi Controller</a><br>
+<a href="/multiple/dummy2">Dummy2 in Multi Controller</a><br>
  </body>
 </html>
