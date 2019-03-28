@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Question1::head">
+    <meta charset="UTF-8">
+    <title>SignUp</title>
+</head>
+<body>
+<form>
+    <table style="border: solid">
+        <tr>
+            <td>NAME:</td>
+            <td>Password:</td>
+        </tr>
+        <tr>
+            <td th:text="${employee.name}"></td>
+            <td th:text="${employee.passowrd}"></td>
+        </tr>
+    </table>
+</form>
+</body>
+<footer th:replace="Question1::footer"></footer>
+</html>

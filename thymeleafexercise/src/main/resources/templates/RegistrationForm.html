@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+<h1>Employee Registration Form</h1>
+<form th:object="${employee}" action="#" method="post">
+    FirstName:<input type="text" placeholder="Enter the FirstName" th:field="*{firstName}" name="firstName"><br><br>
+    LastName:<input type="text" placeholder="Enter the LastName" th:field="*{lastName}" name="lastName"><br><br>
+    Salary:<input type="text" placeholder="Enter the Salary" th:field="*{salary}" name="salary"><br><br>
+    <input type="submit" onclick="submitForm()" value="Click Here To Submit Form">
+</form>
+</div>
+<script>
+    function submitForm() {
+        //Made the page blank
+        $('div').css("display" , "none");
+        $.ajax(function () {
+            url:"/registrationForm"
+            method:"post"
+            success: function result(result) {
+                //shown the text on the page
+                $('div').css("display","block");
+            }
+        });
+    }
+</script>
+</body>
+</html>

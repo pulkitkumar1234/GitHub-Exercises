@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Question1::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form>
+    <table>
+        <tr>
+            <td>
+                NAME:
+            </td>
+            <td>
+                USER TYPE:
+            </td>
+        </tr>
+        <tr>
+            <td th:text="${user.Name}"></td>
+            <td th:with="admin=${user.admin}">
+                <span th:if="${admin}">Admin Welcome</span>
+                <span th:unless="${admin}">User Welcome</span>
+            </td>
+        </tr>
+    </table>
+</form>
+<footer th:replace="Question1::footer"></footer>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ColorList</title>
+    <!--Applying External Css-->
+    <link rel="stylesheet" type="text/css" th:href="@{css/ColorRow.css}">
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Salary</th>
+    </tr>
+    <tr th:each="i,iterStat : ${userList}" th:classappend="${iterStat.even} ? 'yellow':'red'">
+        <td th:text="${i.firstName}"></td>
+        <td th:text="${i.lastName}"></td>
+        <td th:text="${i.salary}"></td>
+    </tr>
+    </thead>
+</table>
+</body>
+</html>
