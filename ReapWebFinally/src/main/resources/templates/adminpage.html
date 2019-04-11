@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+<body>
+<div>
+    <div class="row">
+        <div class="col-lg-7 mt-3">
+            <img src="images/ReapImg.png">
+            <img src="images/ReapFullFormImg.png">
+
+        </div>
+        <div class="col-lg-5 mt-3">
+            <ul class="nav nav-pills justify-content-center">
+                <li class="nav-item mr-3">
+                    <a class="nav-link active" href="#"><img src="images/DashboardIcon.png">Dashboard</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link active" href="badges"><img src="images/whitebadge.png">Badges</a>
+                </li>
+
+                <li class="nav-item mr-3">
+                    <a class="nav-link active" href="adminadmin"><img src="images/whitebadge.png">Admin Panel</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <button type="button" data-toggle="modal" data-target="#UserDetails"><img src="images/default_Male.jpg" style="height: 50px"></button>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="UserDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="float-left">
+                                <img class="d-flex mr-3"src="images/default_Male.jpg" style="height: 50px">
+                            </div>
+                            <div class="float-left">
+                                <div>
+                                    <td>EMPLOYE NAME:</td>
+                                    <span class="ml-3" th:text="${emp1.firstname}">Pulkit</span><span class="mr-2" th:text="${emp1.lastname}">Kumar</span>
+                                </div>
+                                <div class="float-left">
+                                    <td>EMAIL ID:</td>
+                                    <td class="ml-3" th:text="${emp1.email}">Pj.pulkitjhunjhunwala@gmail.com</td>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a href="logout" class="btn btn-primary">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--POPUP-->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Some text in the modal.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="card text-left mb-4">
+
+                <div class="card-header bg-primary">
+
+                </div>
+                <div th:action="@{/}" th:object="${employee}" class="card-body" >
+                    <div>
+                        <table class="table table-bordered colspan-4">
+                            <thead class="bg-primary">
+                            <tr>
+                                <td class="ml-5 mr-5">NAME</td>
+                                <td>ROLE</td>
+                                <td>ACTIVE</td>
+                                <td>EMAIL</td>
+                                <td>AVAILABLE POINTS</td>
+                                <td>POINT USES</td>
+                                <td>
+                                    <div class="float-left text-light">
+                                        <div>
+                                            <a href="#" class="text-light">
+                                                Gold Count
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <img  src="images/OrangeBadge.png" class="mr-3"/>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="float-left text-light">
+                                        <div>
+                                            <a href="#" class="text-light">
+                                                Silver Count</a>
+                                        </div>
+                                        <div>
+                                            <img src="images/GreyBadge.png" class="mr-3"/>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div class="float-left text-light">
+                                        <div>
+                                            <a href="#" class="text-light">
+                                                Bronze COUNT</a>
+                                        </div>
+                                        <div>
+                                            <img src="images/BrownBadge.png" class="mr-3"/>
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </thead>
+                            <tbody  th:each="empl :${emp}">
+                            <tr>
+                                <td><sapn th:text="${empl.firstname}"></sapn><sapn th:text="${empl.lastname}"></sapn></td>
+                                <td>
+                                    <select class="ml-5 mr-5">
+                                        <option label="User"></option>
+                                        <option label="Supervisor"></option>
+                                        <option label="Practice Head"></option>
+                                    </select>
+
+                                </td> <!--drop downlist-->
+                                <td><input type="checkbox" name="active" th:checked="${empl.active}" /></td>
+                                <td th:text="${empl.email}"></td>
+                                <td th:text="${empl.pointsLeftztoUse}"></td>
+                                <td th:text="${empl.pointUsed}"></td>
+                                <td th:text="${empl.receivedGoldCount}"></td>
+                                <td th:text="${empl.receivedSilverBadgeCount}"></td>
+                                <td th:text="${empl.receivedBronzeBadgeCount}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="card-footer btn-primary text-right ">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+</html>

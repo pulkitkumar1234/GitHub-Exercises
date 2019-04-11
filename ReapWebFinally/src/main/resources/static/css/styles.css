@@ -1,0 +1,28 @@
+.hidden{
+    display: none;
+}
+.imgsize img{
+    height:200px;
+}
+
+.drop{
+    color: blue;
+    background-color: white;
+    width: 150px;
+    height:40px;
+    border: blue none;
+    font-size: initial;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.droppped{
+    color: azure;
+    background-color: blue;
+    width: 150px;
+    height:40px;
+    border: blue none;
+    font-size: initial;
+    border-radius: 5px;
+    text-align: center;
+}

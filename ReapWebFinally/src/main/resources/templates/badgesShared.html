@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Badges Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+<body>
+<div>
+    <div class="row">
+        <div class="col-xl-7 mt-3">
+            <img src="images/ReapImg.png">
+            <img src="images/ReapFullFormImg.png">
+
+        </div>
+        <div class="col-xl-5 mt-3">
+            <ul class="nav nav-pills justify-content-center">
+                <li class="nav-item mr-3">
+                    <a class="nav-link active" href="dashboard"><img src="images/DashboardIcon.png">Dashboard</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link active" href="badges"><img src="images/whitebadge.png">Badges</a>
+                </li>
+
+                <li class="nav-item mr-3">
+                    <a class="nav-link active" href="adminadmin"><img src="images/whitebadge.png">Admin Panel</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <button type="button" data-toggle="modal" data-target="#UserDetails"><img src="images/default_Male.jpg" style="height: 50px"></button>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="UserDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="float-left">
+                                <img class="d-flex mr-3"src="images/default_Male.jpg" style="height: 50px">
+                            </div>
+                            <div class="float-left">
+                                <div>
+                                    <td>EMPLOYE NAME:</td>
+                                    <span class="ml-3" th:text="${emp.firstname}">Pulkit</span><span class="mr-2" th:text="${emp.lastname}">Kumar</span>
+                                </div>
+                                <div class="float-left">
+                                    <td>EMAIL ID:</td>
+                                    <td class="ml-3" th:text="${emp.email}">Pj.pulkitjhunjhunwala@gmail.com</td>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a href="logout" class="btn btn-primary">Logout</a>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="logout" class="btn btn-primary">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="row mt-3">
+
+        <div class="col-lg-3 ml-5">
+            <div class="card text-left ">
+                <div class="card-header bg-primary ">
+                    <div class="float-left">
+                        <img src="images/whitebadge.png">
+                    </div>
+                    <div class="float-left text-light">
+                        MY BADGES
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                       <div class="media-body">
+                           <div>
+                               <div class="float-left">
+                                   <img class="d-flex mr-3"src="images/default_Male.jpg" style="height: 50px">
+                               </div>
+                               <div class="float-left">
+                                   <div >
+                                       <span class="mr-2" th:text="${emp.firstname}">Pulkit</span><span class="mr-2" th:text="${emp.lastname}">Kumar</span>
+                                   </div>
+                                   <div class="float-left">
+                                       <img src="images/OrangeBadge.png" class="mr-3">
+                                       <img src="images/GreyBadge.png" class="mr-3">
+                                       <img src="images/BrownBadge.png" >
+                                   </div>
+                                   <br/>
+                                   <div>
+                                       <span class="col-xs-3 ml-2 mr-3" th:text="${emp.receivedGoldCount}"></span>
+                                       <span class="col-xs-3 ml-2 mr-3" th:text="${emp.receivedSilverBadgeCount}"></span>
+                                       <span class="col-xs-3 ml-2 mr-3" th:text="${emp.receivedBronzeBadgeCount}"></span>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-8 ">
+            <div class="card text-left mb-4">
+                <div class="card-header bg-primary">
+                    <div class="float-left"><img src="images/whitebadge.png"></div>
+                    <div class="float-left text-light ml-4 mr-4"><a href="badges" class="text-light"> ALL(4)</a></div>
+                    <div class="float-left text-light ml-4 mr-4"><a href="shared" class="text-light">Badges Received</a></div>
+                    <div class="float-left text-light ml-4 mr-4"><a href="received" class="text-light">Badges Shared</a></div>
+                    <div class="float-left text-light ml-4 mr-4"><a href="points" class="text-light">Badges Points</a></div>
+                    <div class="float-left text-light ml-4 mr-4"><a href="redeem" class="text-light">Redeem Points</a></div>
+                </div>
+                <div class="card-body">
+                    <div th:each="allshared:${sharedBadges}">
+                        <table class="mt-3 table table-bordered">
+                            <tr>
+                                <td><img class="d-flex mr-3"src="images/default_Male.jpg" style="height: 50px"></td>
+                                <td>
+                                    <span class="hidden" th:text="${allshared.giverId}" ></span>
+                                    <span th:text="${allshared.giverName}" ></span>
+                                    <span> recognize </span>
+                                    <span class="hidden" th:text="${allshared.receiverId}" ></span>
+                                    <span th:text="${allshared.receiverName}" ></span>
+                                    <span> by </span>
+                                    <span th:text="${allshared.badgeType}" ></span>
+                                    <span> badge for reason </span>
+                                    <span th:text="${allshared.reason}" ></span>
+                                    <span> and for karma </span>
+                                    <span th:text="${allshared.karma}" ></span>
+                                    <span> on </span>
+                                    <span th:text="${allshared.givenDateAndTime}" ></span>
+                                </td>
+                                <td>
+                                    <span><button><img src="images/icons8-trash-32.png"/> </button></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="card-footer  text-right ">
+                   <!-- <div id="receivedbadges">
+
+                        <table>
+                            <tr th:each=":${}">
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td><button><img src="images/icons8-trash-32.png"/> </button></td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+                    <div id="sharedbadges">
+
+                        <table>
+                            <tr th:each=":${}">
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td><button><img src="images/icons8-trash-32.png"/> </button></td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+                    <div id="badgespoints">
+
+                        <table>
+                            <tr th:each=":${}">
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td><button><img src="images/icons8-trash-32.png"/> </button></td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+                    <div id="redeempoints">
+
+                        <table>
+                            <tr th:each=":${}">
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td th:text="${}"></td>
+                                <td><button><img src="images/icons8-trash-32.png"/> </button></td>
+                            </tr>
+                        </table>
+
+
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<script th:src="@{js/javascript.js}" type="application/javascript"></script>
+<script th:src="@{js/ajax.js}" type="application/javascript"></script>
+</html>
