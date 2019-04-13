@@ -103,6 +103,13 @@
                                         <span class="col-xs-3 ml-2 mr-3" th:text="${emp.receivedSilverBadgeCount}"></span>
                                         <span class="col-xs-3 ml-2 mr-3" th:text="${emp.receivedBronzeBadgeCount}"></span>
                                     </div>
+                                    <div class="float-right btn btn-primary">
+                                        <td class="ml-3" th:text="${emp.pointsLeftztoUse}">Pj.pulkitjhunjhunwala@gmail.com</td>
+                                        <td>
+                                            Points
+                                        </td>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -119,11 +126,12 @@
             <div class="card text-left mb-4">
                 <div class="card-header bg-primary">
                     <div class="float-left"><img src="images/whitebadge.png"></div>
-                    <div class="float-left text-light ml-4 mr-4"><a href="badges" class="text-light"> ALL(4)</a></div>
-                    <div class="float-left text-light ml-4 mr-4"><a href="shared" class="text-light">Badges Received</a></div>
-                    <div class="float-left text-light ml-4 mr-4"><a href="received" class="text-light">Badges Shared</a></div>
-                    <div class="float-left text-light ml-4 mr-4"><a href="points" class="text-light">Badges Points</a></div>
-                    <div class="float-left text-light ml-4 mr-4"><a href="redeem" class="text-light">Redeem Points</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="badges" class="text-light"> ALL(4)</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="shared" class="text-light">Badges Received</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="received" class="text-light">Badges Shared</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="points" class="text-light">Badges Points</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="redeem" class="text-light">Redeem Points</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="cartAndBuy" class="text-light">Cart/Buyed Product</a></div>
                 </div>
                 <div class="card-body">
                     <div th:each="allreceived:${receivedBadges}">
@@ -153,83 +161,6 @@
                     </div>
                 </div>
                 <div class="card-footer text-right ">
-
-
-                    <!--<div id="receivedbadges">
-
-                        <table>
-                            <tr th:each=":${}">
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td><button><img src="images/icons8-trash-32.png"/> </button></td>
-                            </tr>
-                        </table>
-
-
-                    </div>
-
-                    <div id="sharedbadges">
-
-                        <table>
-                            <tr th:each=":${}">
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td><button><img src="images/icons8-trash-32.png"/> </button></td>
-                            </tr>
-                        </table>
-
-
-                    </div>
-
-                    <div id="badgespoints">
-
-                        <table>
-                            <tr th:each=":${}">
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td><button><img src="images/icons8-trash-32.png"/> </button></td>
-                            </tr>
-                        </table>
-
-
-                    </div>
-
-                    <div id="redeempoints">
-
-                        <table>
-                            <tr th:each=":${}">
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td th:text="${}"></td>
-                                <td><button><img src="images/icons8-trash-32.png"/> </button></td>
-                            </tr>
-                        </table>
-
-
-                    </div>-->
                 </div>
             </div>
         </div>

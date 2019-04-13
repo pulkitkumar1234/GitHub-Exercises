@@ -234,4 +234,9 @@ public class EmployeeService {
         }
         return employee1;
     }
+
+
+    public void saveEmp(Employee employee){
+        employeeRepository.save(employee);
+    }
 }

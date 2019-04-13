@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en"xmlns:th="http://www.thymeleaf.com">
+<html lang="en" xmlns:th="http://www.thymeleaf.com">
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{css/styles.css}">
 </head>
 <body>
 <div>
@@ -17,7 +19,7 @@
         <div class="col-lg-5 mt-3">
             <ul class="nav nav-pills justify-content-center">
                 <li class="nav-item mr-3">
-                    <a class="nav-link active" href="#"><img src="images/DashboardIcon.png">Dashboard</a>
+                    <a class="nav-link active" href="dashboard"><img src="images/DashboardIcon.png">Dashboard</a>
                 </li>
                 <li class="nav-item mr-3">
                     <a class="nav-link active" href="badges"><img src="images/whitebadge.png">Badges</a>
@@ -27,14 +29,16 @@
                     <a class="nav-link active" href="adminadmin"><img src="images/whitebadge.png">Admin Panel</a>
                 </li>
                 <li class="nav-item mr-3">
-                    <button type="button" data-toggle="modal" data-target="#UserDetails"><img src="images/default_Male.jpg" style="height: 50px"></button>
+                    <button type="button" data-toggle="modal" data-target="#UserDetails"><img
+                            src="images/default_Male.jpg" style="height: 50px"></button>
                 </li>
             </ul>
 
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="UserDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="UserDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -46,12 +50,13 @@
                     <div class="modal-body">
                         <div>
                             <div class="float-left">
-                                <img class="d-flex mr-3"src="images/default_Male.jpg" style="height: 50px">
+                                <img class="d-flex mr-3" src="images/default_Male.jpg" style="height: 50px">
                             </div>
                             <div class="float-left">
                                 <div>
                                     <td>EMPLOYE NAME:</td>
-                                    <span class="ml-3" th:text="${emp1.firstname}">Pulkit</span><span class="mr-2" th:text="${emp1.lastname}">Kumar</span>
+                                    <span class="ml-3" th:text="${emp1.firstname}">Pulkit</span><span class="mr-2"
+                                                                                                      th:text="${emp1.lastname}">Kumar</span>
                                 </div>
                                 <div class="float-left">
                                     <td>EMAIL ID:</td>
@@ -68,27 +73,6 @@
                 </div>
             </div>
         </div>
-
-        <!--POPUP-->
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Some text in the modal.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
     </div>
 
     <div class="row">
@@ -98,10 +82,10 @@
                 <div class="card-header bg-primary">
 
                 </div>
-                <div th:action="@{/}" th:object="${employee}" class="card-body" >
+                <div th:action="@{/}" th:object="${employee}" class="card-body">
                     <div>
                         <table class="table table-bordered colspan-4">
-                            <thead class="bg-primary">
+                            <thead class="bg-primary ">
                             <tr>
                                 <td class="ml-5 mr-5">NAME</td>
                                 <td>ROLE</td>
@@ -117,7 +101,7 @@
                                             </a>
                                         </div>
                                         <div>
-                                            <img  src="images/OrangeBadge.png" class="mr-3"/>
+                                            <img src="images/OrangeBadge.png" class="mr-3"/>
                                         </div>
                                     </div>
                                 </td>
@@ -145,30 +129,173 @@
                                     </div>
 
                                 </td>
+                                <td>CLICK TO UPDATE</td>
                             </thead>
-                            <tbody  th:each="empl :${emp}">
+                            <tbody th:each="empl :${emp}">
                             <tr>
-                                <td><sapn th:text="${empl.firstname}"></sapn><sapn th:text="${empl.lastname}"></sapn></td>
+                                <td th:text="${empl.Id}" class="hidden"></td>
                                 <td>
-                                    <select class="ml-5 mr-5">
-                                        <option label="User"></option>
-                                        <option label="Supervisor"></option>
-                                        <option label="Practice Head"></option>
+                                    <span th:text="${empl.firstname}"></span>
+                                    <span th:text="${empl.lastname}"></span>
+                                </td>
+                                <td><!--drop downlist-->
+                                    <select class="custom-select" multiple>
+                                        <option value="User">User</option>
+                                        <option value="Supervisor">Supervisor</option>
+                                        <option value="Practice Head">Practice Head</option>
                                     </select>
 
-                                </td> <!--drop downlist-->
-                                <td><input type="checkbox" name="active" th:checked="${empl.active}" /></td>
+                                </td>
+                                <td><input type="checkbox" name="active" th:checked="${empl.getActive()} ? 'checked'"/>
+                                </td>
                                 <td th:text="${empl.email}"></td>
-                                <td th:text="${empl.pointsLeftztoUse}"></td>
-                                <td th:text="${empl.pointUsed}"></td>
-                                <td th:text="${empl.receivedGoldCount}"></td>
-                                <td th:text="${empl.receivedSilverBadgeCount}"></td>
-                                <td th:text="${empl.receivedBronzeBadgeCount}"></td>
+                                <td ><input class="col-5" type="text" name="pointtoused" id="pointtoused" th:value="${empl.pointsLeftztoUse}"></td>
+                                <td ><input class="col-5" type="text" name="pointsused" id="pointsused" th:value="${empl.pointUsed}"></td>
+                                <td ><input class="col-5" type="text" name="goldscount" id="goldscount" th:value="${empl.receivedGoldCount}"></td>
+                                <td ><input class="col-5" type="text" name="silverspoint" id="silverspoint" th:value="${empl.receivedSilverBadgeCount}" ></td>
+                                <td ><input class="col-5" type="text" name="bronzepoint" id="bronzepoint" th:value="${empl.receivedBronzeBadgeCount}"></td>
+                                <td>
+                                    <a  th:href="@{/updateemployee(id=${empl.id})}">UPDATE</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
 
+                </div>
+                <!--MODAL-->
+                <div class="modal fade" id="updateemployee" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel2">Update Employee Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="media-body">
+                                    <div>
+                                        <form th:action="@{/deletewalloffame}" method="post">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <td>
+                                                        <label for="firstname"> FIRST NAME</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="firstname" name="firstname" value="">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="lastname">LAST NAME</label>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="lastname" name="lastname" value="">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="role">ROLE</label>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="role" name="role" value="">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="active">ACTIVE</label>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="active" name="active" value="">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="email">EMAIL</label>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="email" name="email" value="">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="availablepoints">AVAILABLE POINT</label>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="availablepoints" name="availablepoints"
+                                                               value="">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="pointused">POINT USED</label>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="pointused" name="pointused"
+                                                               value=""><br/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="goldcount">GOLD COUNT</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="goldcount" name="goldcount"
+                                                               value=""><br/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="silvercount">SILVER COUNT</label>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="silvercount" name="silvercount" value=""><br/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="bronzecount">BRONZE COUNT</label>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="bronzecount" name="bronzecount" value=""><br/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="submit" class="btn btn-secondary"
+                                                               data-dismiss="modal" value="Delete">
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </form>
+                                    </div>
+                                    <br/>
+                                    <div class="modal-footer">
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer btn-primary text-right ">
 
@@ -178,8 +305,14 @@
     </div>
 </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
 
 </html>

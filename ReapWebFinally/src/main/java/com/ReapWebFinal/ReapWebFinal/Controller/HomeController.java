@@ -30,58 +30,6 @@ public class HomeController {
     @Autowired
     EmailServiceImpl emailService;
 
-    @RequestMapping(value = {"/"}, method = RequestMethod.GET)   //Working
-    public ModelAndView root(HttpSession httpSession) {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees == null) {
-            modelAndView.setViewName("login");
-            return modelAndView;
-        }
-        modelAndView.setViewName("forward:/dashboard");
-        return modelAndView;
-    }
-
-
-    @RequestMapping(value = {"/login"}, method = RequestMethod.GET) //Working, partitally
-    public ModelAndView login(HttpSession httpSession) {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees == null) {
-            modelAndView.setViewName("login");
-            return modelAndView;
-        }
-        modelAndView.setViewName("redirect:/dashboard");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST) //Working partitally
-    public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password,
-                              HttpSession httpSession) {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees != null) {
-            employees.setEmail(username);
-            httpSession.setAttribute("employees", employees);
-            modelAndView.setViewName("redirect:/dashboard");
-            return modelAndView;
-        }
-        try {
-            String id = username;
-            employees = employeeService.FindByEmailAndPassword(id, password);
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println(numberFormatException.getMessage());
-        }
-
-        if (employees == null) {
-            modelAndView.addObject("msg", "Invalid Credentials!");
-            modelAndView.setViewName("login");
-            return modelAndView;
-        }
-        httpSession.setAttribute("employees", employees);
-        modelAndView.setViewName("forward:/dashboard");
-        return modelAndView;
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET) //Working,  need to work on validation
     public ModelAndView register(HttpSession httpSession) {
@@ -136,9 +84,10 @@ public class HomeController {
             modelAndView.setViewName("redirect:/login");
             return modelAndView;
         }
-        modelAndView.addObject("walloffame", new WallOfFame());
+       modelAndView.addObject("wof", new WallOfFame());
         modelAndView.addObject("emp", employeeService.findEmployee(employees.getEmail()));
         modelAndView.setViewName("dashboard");
+        System.out.println(employeeService.findEmployee(employees.getEmail()));
         modelAndView.addObject("emp", employeeService.findEmployee(employees.getEmail()));
         modelAndView.addObject("walloffame", wallOfFameService.AllBadgeTransaction());
         modelAndView.addObject("lastsevendays", employeeService.LastSevenDay());
@@ -156,7 +105,7 @@ public class HomeController {
             modelAndView.setViewName("redirect:/login");
             return modelAndView;
         }
-        modelAndView.addObject("walloffame", new WallOfFame());
+       modelAndView.addObject("wof", new WallOfFame());
         modelAndView.addObject("emp", employeeService.findEmployee(employees.getEmail()));
         modelAndView.addObject("walloffame", wallOfFameService.AllBadgeTransaction());
         modelAndView.addObject("lastsevendays", employeeService.LastSevenDay());
@@ -180,7 +129,7 @@ public class HomeController {
             modelAndView.setViewName("redirect:/login");
             return modelAndView;
         }
-        modelAndView.addObject("walloffame", new WallOfFame());
+        //modelAndView.addObject("walloffame", new WallOfFame());
         modelAndView.setViewName("redirect:/dashboard");
         return modelAndView;
     }
@@ -193,7 +142,8 @@ public class HomeController {
             modelAndView.addObject("msg", "Please login first!!!");
             modelAndView.setViewName("redirect:/login");
         }
-        // modelAndView.addObject("employee", employees);
+        
+
         wallOfFame.setGiverId(employees.getId());
         wallOfFame.setGiverName(employees.getFirstname());
         //Set from The data set when from recognize button is clicked
@@ -204,14 +154,17 @@ public class HomeController {
         wallOfFame.setReason(wallOfFame.getReason());
         wallOfFame.setGivenDateAndTime(wallOfFame.getGivenDateAndTime());
         wallOfFame.setGivenDateAndTime(new Date());
+
         int success = wallOfFameService.saveTransaction(wallOfFame);
+
         Integer receiverid = wallOfFame.getReceiverId();
         Employee employee = employeeService.findEmployeeById(receiverid);
+
         if (success == 1) {
             emailService.sendEmailWhenBagdgeShared(employees);
             emailService.sendEmailWhenBagdgeReceived(employee);
         }
-        modelAndView.addObject("walloffame", new WallOfFame());
+
         Employee EmployeereceivedBadges = employeeService.getReceivedBadgesOfEmployee(employees.getEmail());
         modelAndView.addObject("receivedBadges", EmployeereceivedBadges);
 
@@ -229,109 +182,6 @@ public class HomeController {
         return employeeService.searchNewer(term);
     }
 
-
-    //BADGES PAGES
-    @RequestMapping(value = "/badges", method = RequestMethod.GET)
-    public ModelAndView badges(HttpSession httpSession) throws ZeroBadgeException {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees == null) {
-            modelAndView.addObject("msg", "Please login first!!!!");
-            modelAndView.setViewName("redirect:login");
-            return modelAndView;
-        }
-        modelAndView.addObject("userBadgeTransactions",
-                wallOfFameService.allBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.addObject("emp", employeeService.findEmployee(employees.getEmail()));
-        modelAndView.addObject("allreceivedBadges", wallOfFameService.allBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.setViewName("badges");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/shared", method = RequestMethod.GET)
-    public ModelAndView shared(HttpSession httpSession) throws ZeroBadgeException {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees == null) {
-            modelAndView.addObject("msg", "Please login first!!!!");
-            modelAndView.setViewName("redirect:login");
-            return modelAndView;
-        }
-        modelAndView.addObject("userBadgeTransactions",
-                wallOfFameService.allSharedBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.addObject("emp", employeeService.findEmployee(employees.getEmail()));
-        modelAndView.addObject("sharedBadges", wallOfFameService.allSharedBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.setViewName("badgesShared");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/received", method = RequestMethod.GET)
-    public ModelAndView received(HttpSession httpSession) throws ZeroBadgeException {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees == null) {
-            modelAndView.addObject("msg", "Please login first!!!!");
-            modelAndView.setViewName("redirect:login");
-            return modelAndView;
-        }
-        modelAndView.addObject("userBadgeTransactions",
-                wallOfFameService.allReceivedBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.addObject("emp", employeeService.findEmployee(employees.getEmail()));
-        modelAndView.addObject("receivedBadges", wallOfFameService.allReceivedBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.setViewName("badgesReceived");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/points", method = RequestMethod.GET)
-    public ModelAndView points(HttpSession httpSession) throws ZeroBadgeException {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees == null) {
-            modelAndView.addObject("msg", "Please login first!!!!");
-            modelAndView.setViewName("redirect:login");
-            return modelAndView;
-        }
-        modelAndView.addObject("userBadgeTransactions",
-                wallOfFameService.allReceivedBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.addObject("emp", employeeService.findEmployee(employees.getEmail()));
-        modelAndView.addObject("receivedBadges", wallOfFameService.allReceivedBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.addObject("sharedBadges", wallOfFameService.allSharedBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.addObject("allreceivedBadges", wallOfFameService.allBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.setViewName("badgespoints");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/redeem", method = RequestMethod.GET)
-    public ModelAndView redeem(HttpSession httpSession) throws ZeroBadgeException {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees == null) {
-            modelAndView.addObject("msg", "Please login first!!!!");
-            modelAndView.setViewName("redirect:login");
-            return modelAndView;
-        }
-        modelAndView.addObject("emp", employeeService.findEmployee(employees.getEmail()));
-        modelAndView.addObject("userBadgeTransactions", wallOfFameService.allReceivedBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.setViewName("RedeemPoints");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/redeem", method = RequestMethod.POST)
-    public ModelAndView redeempost(HttpSession httpSession) throws ZeroBadgeException {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees == null) {
-            modelAndView.addObject("msg", "Please login first!!!!");
-            modelAndView.setViewName("redirect:login");
-            return modelAndView;
-        }
-        modelAndView.addObject("emp", employeeService.findEmployee(employees.getEmail()));
-        modelAndView.addObject("userBadgeTransactions", wallOfFameService.allReceivedBadgeTransactionOfEmployee(employees.getId()));
-        modelAndView.setViewName("RedeemPoints");
-        return modelAndView;
-    }
-
-
     //Badges of perticular User id
     @RequestMapping(value = "/badges/index/{uid}") //not checked
     public ModelAndView badgesOfUserId(@PathVariable String id, HttpSession httpSession) {
@@ -343,42 +193,12 @@ public class HomeController {
             return modelAndView;
         }
         modelAndView.addObject("userBadgeTransactions",
-                wallOfFameService.allBadgeTransactionOfEmployee(Integer.parseInt(id)));
+                wallOfFameService.allBadgeTransactionOfEmployeebyId(Integer.parseInt(id)));
         modelAndView.addObject("receivedBadges", wallOfFameService.allReceivedBadgeTransactionOfEmployee(employees.getId()));
         modelAndView.setViewName("badges");
         return modelAndView;
     }
 
-
-    @RequestMapping(value = "/adminadmin", method = RequestMethod.GET)
-    public ModelAndView admin(HttpSession httpSession) throws ZeroBadgeException {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees == null) {
-            modelAndView.addObject("msg", "Please login first!!!!");
-            modelAndView.setViewName("redirect:login");
-            return modelAndView;
-        }
-        modelAndView.addObject("emp1", employeeService.findEmployee(employees.getEmail()));
-        modelAndView.addObject("emp", employeeService.allEmpolyeeDetail());
-        modelAndView.setViewName("adminpage");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/adminadmin", method = RequestMethod.POST)
-    public ModelAndView adminpost(HttpSession httpSession) throws ZeroBadgeException {
-        Employee employees = (Employee) httpSession.getAttribute("employees");
-        ModelAndView modelAndView = new ModelAndView();
-        if (employees == null) {
-            modelAndView.addObject("msg", "Please login first!!!!");
-            modelAndView.setViewName("redirect:login");
-            return modelAndView;
-        }
-        modelAndView.addObject("emp1", employeeService.findEmployee(employees.getEmail()));
-        modelAndView.addObject("emp", employeeService.allEmpolyeeDetail());
-        modelAndView.setViewName("adminpage");
-        return modelAndView;
-    }
 
     /*   @RequestMapping(value = "/usernameautocomplete")
        @ResponseBody
@@ -411,19 +231,6 @@ public class HomeController {
         return suggession;
     }
 
-    @RequestMapping(value = "/forgotpassword")
-    public ModelAndView recover(@RequestParam("email") String email) throws ZeroBadgeException {
-        ModelAndView modelAndView = new ModelAndView();
-        Employee employees = employeeService.findEmployee(email);
-        if (employees == null) {
-            modelAndView.addObject("msg", "Invalid Email!");
-            modelAndView.setViewName("login");
-            return modelAndView;
-        } else {
-            emailService.recoverpassword(employees);
-            modelAndView.setViewName("forward:/dashboard");
-            return modelAndView;
-        }
-    }
+
 }
 

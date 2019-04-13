@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
@@ -72,6 +72,7 @@
             </div>
         </div>
     </div>
+        <!---->
     <div class="row mt-4" >
         <div class="col-lg-8">
             <div class="ml-3">
@@ -81,20 +82,20 @@
                         <div class="float-left text-light">RECOGNIZE NEWER</div>
                     </div>
                     <div class="card-body">
-                   <!-- <form th:object="${walloffame}" th:action="@{karma}"  method="post">
+                    <form th:object="${wof}" th:action="@{karma}"  method="post">
                         <div class="float-left ml-2 mr-5 ui-widget" >
-                            &lt;!&ndash;<i class=" "></i>&ndash;&gt;
+                            <!--<i class=" "></i>-->
                             <input th:field="*{receiverId}" type="text" class="hidden" name="receiverid" id="receiverid">
                             <input th:field="*{receiverName}" type="text" class="fa fa-user form-control col-20" name="newername" id="receiverName">
                         </div>
                         <select class="drop" name="badge" id="badge" th:field="*{badgeType}">
-                            <option>Select Badge</option>
+                            <option value="badgetype">Select Badge</option>
                             <option value="1"><b>Gold(</b><b th:text="${emp.shareableGoldBadgeCount}">2</b><b>)</b></option>
                             <option value="2"><b>Silver(</b><b th:text="${emp.shareableSilverBadgeCount}">4</b><b>)</b></option>
                             <option value="3"><b>Silver(</b><b th:text="${emp.shareableBronzeBadgeCount}">4</b><b>)</b></option>
                         </select>
                         <select class="drop" name="karma" id="karma" th:field="*{karma}">
-                            <option>Select a Karma</option>
+                            <option value="karmatype">Select a Karma</option>
                             <option value="Extra Miler">Extra Miler</option>
                             <option value="Knowledge Sharing">Knowledge Sharing</option>
                             <option value="Mentorship">Mentorship</option>
@@ -108,35 +109,7 @@
                     <div class="card-footer text-right ">
                         <button class="btn btn-primary">RECOGNIZE</button>
                     </div>
-                    </form>-->
-                        <form th:object="${walloffame}" th:action="@{karma}"  method="post">
-                            <div class="float-left ml-2 mr-5 ui-widget" >
-                                <!--<i class=" "></i>-->
-                                <input type="text" class="hidden" name="receiverid" id="receiverid">
-                                <input type="text" class="fa fa-user form-control col-20" name="newername" id="receiverName">
-                            </div>
-                            <select class="drop" name="badge" id="badge" >
-                                <option>Select Badge</option>
-                                <option value="1"><b>Gold(</b><b th:text="${emp.shareableGoldBadgeCount}">2</b><b>)</b></option>
-                                <option value="2"><b>Silver(</b><b th:text="${emp.shareableSilverBadgeCount}">4</b><b>)</b></option>
-                                <option value="3"><b>Silver(</b><b th:text="${emp.shareableBronzeBadgeCount}">4</b><b>)</b></option>
-                            </select>
-                            <select class="drop" name="karma" id="karma" >
-                                <option>Select a Karma</option>
-                                <option value="Extra Miler">Extra Miler</option>
-                                <option value="Knowledge Sharing">Knowledge Sharing</option>
-                                <option value="Mentorship">Mentorship</option>
-                                <option value="Pat on the back">Pat on the back</option>
-                                <option value="Customer Delight">Customer Delight</option>
-                            </select>
-                            <div class="float-left ml-2 mt-3">
-                                <textarea name="reason" cols="90" rows="8" ></textarea>
-                            </div>
-
-                            <div class="card-footer text-right ">
-                                <button class="btn btn-primary">RECOGNIZE</button>
-                            </div>
-                        </form>
+                    </form>
                     </div>
                     </div>
                 <div>
@@ -144,7 +117,9 @@
                         <div class="card-header bg-primary ">
                             <div class="float-left mr-4">
                                 <div class="float-left"> <img src="images/whitebadge.png"></div>
-                               <div class="float-left text-light"> WALL OF FAME</div>
+                               <div class="float-left text-light">
+                                   WALL OF FAME
+                               </div>
 
                             </div>
                             <div class="float-left">
@@ -217,35 +192,35 @@
                         </div>
                         <div class="card-body">
                             <div class="media">
-
                                 <div class="media-body">
                                     <div th:each="fame:${walloffame}">
-                                        <table class="mt-3 table table-bordered">
-                                            <tr>
-                                                <td><img class="d-flex mr-3"src="images/default_Male.jpg" style="height: 50px"></td>
-                                                <td>
-                                                    <span th:text="${fame.giverName}" ></span>
-                                                    <span> recognize </span>
-                                                    <span th:text="${fame.receiverName}" ></span>
-                                                    <span> by </span>
-                                                    <span th:text="${fame.badgeType}" ></span>
-                                                    <span> badge for reason </span>
-                                                    <span th:text="${fame.reason}" ></span>
-                                                    <span> and for karma </span>
-                                                    <span th:text="${fame.karma}" ></span>
-                                                    <span> on </span>
-                                                    <span th:text="${fame.givenDateAndTime}" ></span>
-                                                </td>
-                                                <td>
-                                                    <span><button data-toggle="modal" data-target="#deleteuser"><img src="images/icons8-trash-32.png"/> </button></span>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <form>
+                                            <table class="table">
+                                                <tr>
+                                                    <td><img class="d-flex mr-3"src="images/default_Male.jpg" style="height: 50px"></td>
+                                                    <td>
+                                                        <span th:text="${fame.giverName}" ></span>
+                                                        <span> recognize </span>
+                                                        <span th:text="${fame.receiverName}" ></span>
+                                                        <span> by </span>
+                                                        <span th:text="${fame.badgeType}" ></span>
+                                                        <span> badge for reason </span>
+                                                        <span th:text="${fame.reason}" ></span>
+                                                        <span> and for karma </span>
+                                                        <span th:text="${fame.karma}" ></span>
+                                                        <span> on </span>
+                                                        <span th:text="${fame.givenDateAndTime}" ></span>
+                                                    </td>
+                                                    <td>
+                                                        <a  th:href="@{/deletewalloffame(id=${fame.id})}"><img src="images/icons8-trash-32.png"/></a>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -253,6 +228,67 @@
             <div >
             </div>
         </div>
+        <!--Modal for delete wall of fame-->
+        <div class="deletewalloffameform">
+            <form  th:action="@{/deletewalloffame}" method="post">
+                <div class="modal fade" id="deletewalloffamemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel2">Delete Wall of Fame</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="media-body" >
+                                    <div>
+                                        <form th:action="@{/deletewalloffame}" method="post">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="" id="incorrectname"> Selected Incorrect Name
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="" id="incorrectbadhe">Selected Incorrect Badge
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="" id="incorrectkarma">Selected Incorrect Karma
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" name="" id="inappropriatelang">Inappropriate Language Used
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <!--<a  th:href="@{/deletewalloffame(id=${fame.id})}"><img src="images/icons8-trash-32.png"/></a>-->
+                                                </tr>
+
+                                            </table>
+                                        </form>
+                                    </div>
+                                    <br/>
+                                    <div class="modal-footer">
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
         <div class="col-lg-3 ml-4">
             <div class="card text-left ">
                 <div class="card-header bg-primary ">
@@ -321,8 +357,8 @@
                                     </div>
                                     <br/>
                                     <div>
-                                        <span class="col-xs-3 mr-3" th:text="${last.receivedGoldCount}" ></span>
-                                        <span class="col-xs-3 mr-3" th:text="${last.receivedSilverBadgeCount}"></span>
+                                        <span class="col-xs-3 ml-2 mr-4" th:text="${last.receivedGoldCount}" ></span>
+                                        <span class="col-xs-3 mr-4" th:text="${last.receivedSilverBadgeCount}"></span>
                                         <span class="col-xs-3 mr-3" th:text="${last.receivedBronzeBadgeCount}"></span>
                                     </div>
                                 </div>
@@ -353,4 +389,5 @@
         crossorigin="anonymous"></scriptString>
 <script th:src="@{js/javascript.js}" type="application/javascript"></script>
 <script th:src="@{js/searchusers.js}" type="application/javascript"></script>
+<script th:src="@{js/modal.js}" type="application/javascript"></script>
 </html>

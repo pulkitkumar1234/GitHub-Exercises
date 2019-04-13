@@ -16,17 +16,9 @@ public class Employee {
     String email;
     String password;
     String imagepath;
-    Boolean active;
-    @ElementCollection
-    List<String> Product;
-    @ElementCollection
-    List<String> cart;
-
-
-
+    Boolean active=true;
     @ElementCollection
     Set<String> roles= new HashSet<>(Arrays.asList("User"));
-
     @Transient
     MultipartFile multipartFile;
     Integer shareableGoldBadgeCount=1;
@@ -66,14 +58,6 @@ public class Employee {
         this.roles = roles;
         this.cart=cart;
     }*/
-
-    public List<String> getProduct() {
-        return Product;
-    }
-
-    public void setProduct(List<String> product) {
-        Product = product;
-    }
 
     public Integer getPointUsed() {
         return pointUsed;
@@ -246,13 +230,7 @@ public class Employee {
         this.roles = roles;
     }
 
-    public List<String> getCart() {
-        return cart;
-    }
 
-    public void setCart(List<String> cart) {
-        this.cart = cart;
-    }
 
 }
 

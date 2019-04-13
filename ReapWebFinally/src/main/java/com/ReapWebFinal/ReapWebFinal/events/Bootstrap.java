@@ -18,6 +18,15 @@ public class Bootstrap {
    @Autowired
    WallOfFameRepository wallOfFameRepository;
 
+   @Autowired
+   ProductListRepository productListRepository;
+
+   @Autowired
+   CartRepository cartRepository;
+
+   @Autowired
+   ProductBuyedRepository productBuyedRepository;
+
     @EventListener(ApplicationStartedEvent.class)
     void setUp(){
         if(!employeeRepository.findAll().iterator().hasNext()) {
@@ -46,6 +55,47 @@ public class Bootstrap {
                 wallOfFame.setBadgeType("Badge"+e);
                 wallOfFame.setGivenDateAndTime(new Date());
                 wallOfFameRepository.save(wallOfFame);
+
+            });
+        }
+
+        if(!productListRepository.findAll().iterator().hasNext()) {
+
+            IntStream.range(0, 5).forEach(e -> {
+                ProductList productList = new ProductList();
+                productList.setProductImage("images/product/");
+                productList.setProductname("Product "+e);
+                productList.setPointsToRedeem(49+e);
+                productList.setStock(9+e);
+                productListRepository.save(productList);
+
+            });
+        }
+
+        if(!cartRepository.findAll().iterator().hasNext()) {
+
+            IntStream.range(0, 5).forEach(e -> {
+                Cart cart = new Cart();
+               cart.setProductId(e+1);
+               cart.setProductImage("/image/product");
+               cart.setProductname("Product "+e);
+               cart.setPointsToRedeem(49+e);
+               cart.setCartOwnerId(e+1);
+               cartRepository.save(cart);
+
+            });
+        }
+
+        if(!productBuyedRepository.findAll().iterator().hasNext()) {
+
+            IntStream.range(0, 5).forEach(e -> {
+                ProductBuyed productBuyed = new ProductBuyed();
+                productBuyed.setProductId(e+1);
+                productBuyed.setProductname("Product "+e);
+                productBuyed.setProductImage("/image/product");
+                productBuyed.setProductOwnerId(e+1);
+
+                productBuyedRepository.save(productBuyed);
 
             });
         }

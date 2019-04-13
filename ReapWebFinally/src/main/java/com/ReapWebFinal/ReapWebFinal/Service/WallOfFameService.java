@@ -72,9 +72,14 @@ public class WallOfFameService {
         return wallOfFames1;
     }
 
-   public List<WallOfFame> allBadgeTransactionOfEmployee(Integer id){
-      return wallOfFameRepository.findAllById(id);
+    public List<WallOfFame> allBadgeTransactionOfEmployeebyId(Integer id){
+        return wallOfFameRepository.findAllById(id);
+    }
 
-
+   public List<WallOfFame> allBadgeTransactionOfEmployee(Integer id, Integer id2){
+      return wallOfFameRepository.findAllByReceiverIdOrGiverId(id,id2);
+   }
+   public void deletewalloffame(Integer id){
+        wallOfFameRepository.deleteById(id);
    }
 }

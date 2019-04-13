@@ -15,5 +15,6 @@ public interface WallOfFameRepository extends CrudRepository<WallOfFame,Integer>
     List<WallOfFame> findAllByGiverId(Integer id);
     List<WallOfFame> findAllByReceiverId(Integer Id);
     List<WallOfFame> findAllById(Integer id);
+    List<WallOfFame> findAllByReceiverIdOrGiverId(Integer id,Integer id1);
    // List<WallOfFame> findAll();
 }

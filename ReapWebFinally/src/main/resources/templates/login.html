@@ -57,18 +57,22 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form th:action="@{/forgotpassword}" method="post" autocomplete="off">
+                        <form th:action="@{/recoverPassword}" method="post" autocomplete="off">
                             <table>
                                 <tr>
                                     <td>Enter Your Email Id:</td>
                                     <td><input type="email" name="email" id="email" class="form-control form-control-sm" autocomplete="off"> </td>
                                 </tr>
+                                <tr>
+                                    <td><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></td>
+                                    <!--<td><a href="/recoverPassword" class="btn btn-primary">Recover</a></td>&lt;!&ndash;&ndash;&gt;-->
+                                    <td><input type="submit" value="Recover" class="btn btn-primary"></td>
+                                </tr>
                             </table>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a href="/recoverPassword" class="btn btn-primary">Recover</a>
+
                     </div>
                 </div>
             </div>

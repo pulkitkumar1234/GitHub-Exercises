@@ -20,7 +20,7 @@ public class EmailServiceImpl  {
     public void sendEmailOnRegistration(Employee employee) throws MailException{
     SimpleMailMessage mailMessage=new SimpleMailMessage();
     mailMessage.setTo(employee.getEmail());
-    mailMessage.setFrom("pj.pulkitjhunjhunwala@gmail.com");
+    mailMessage.setFrom("pulkitkumar241@gmail.com");
     mailMessage.setSubject("Registration Successfull!");
     mailMessage.setText("You Have Been Successfully Registered to Reap");
     javaMailSender.send(mailMessage);
@@ -28,7 +28,7 @@ public class EmailServiceImpl  {
     public void sendEmailWhenBagdgeShared(Employee employee) throws MailException{
         SimpleMailMessage mailMessage=new SimpleMailMessage();
         mailMessage.setTo(employee.getEmail());
-        mailMessage.setFrom("pj.pulkitjhunjhunwala@gmail.com");
+        mailMessage.setFrom("pulkitkumar241@gmail.com");
         mailMessage.setSubject(employee.getFirstname()+"Recognized by You");
         mailMessage.setText(employee.getFirstname()+"have Been Recognized by Someone");
         javaMailSender.send(mailMessage);
@@ -36,7 +36,7 @@ public class EmailServiceImpl  {
     public void sendEmailWhenBagdgeReceived(Employee employee) throws MailException{
         SimpleMailMessage mailMessage=new SimpleMailMessage();
         mailMessage.setTo(employee.getEmail());
-        mailMessage.setFrom("pj.pulkitjhunjhunwala@gmail.com");
+        mailMessage.setFrom("pulkitkumar241@gmail.com");
         mailMessage.setSubject(employee.getFirstname()+" is Recognized");
         mailMessage.setText("You Have Been Recognized by Someone");
         javaMailSender.send(mailMessage);
@@ -45,7 +45,7 @@ public class EmailServiceImpl  {
     public void recoverpassword(Employee employee) throws MailException{
         SimpleMailMessage mailMessage=new SimpleMailMessage();
         mailMessage.setTo(employee.getEmail());
-        mailMessage.setFrom("pj.pulkitjhunjhunwala@gmail.com");
+        mailMessage.setFrom("pulkitkumar241@gmail.com");
         mailMessage.setSubject("Your Passwod");
         mailMessage.setText("This is Your Password"+employee.getPassword());
         javaMailSender.send(mailMessage);

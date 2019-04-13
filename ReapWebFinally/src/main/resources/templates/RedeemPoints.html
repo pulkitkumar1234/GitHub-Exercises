@@ -107,6 +107,13 @@
                                     <span class="col-xs-3 ml-2 mr-3" th:text="${emp.receivedSilverBadgeCount}"></span>
                                     <span class="col-xs-3 ml-2 mr-3" th:text="${emp.receivedBronzeBadgeCount}"></span>
                                 </div>
+                                <div class="float-right btn btn-primary">
+                                    <td class="ml-3" th:text="${emp.pointsLeftztoUse}">Pj.pulkitjhunjhunwala@gmail.com</td>
+                                    <td>
+                                        Points
+                                    </td>
+
+                                </div>
                             </div>
                         </div>
 
@@ -122,15 +129,16 @@
             <div class="card text-left mb-4">
                 <div class="card-header bg-primary">
                     <div class="float-left"><img src="images/whitebadge.png"></div>
-                    <div class="float-left text-light ml-4 mr-4"><a href="badges" class="text-light"> ALL(4)</a></div>
-                    <div class="float-left text-light ml-4 mr-4"><a href="shared" class="text-light">Badges Received</a></div>
-                    <div class="float-left text-light ml-4 mr-4"><a href="received" class="text-light">Badges Shared</a></div>
-                    <div class="float-left text-light ml-4 mr-4"><a href="points" class="text-light">Badges Points</a></div>
-                    <div class="float-left text-light ml-4 mr-4"><a href="redeem" class="text-light">Redeem Points</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="badges" class="text-light"> ALL(4)</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="shared" class="text-light">Badges Received</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="received" class="text-light">Badges Shared</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="points" class="text-light">Badges Points</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="redeem" class="text-light">Redeem Points</a></div>
+                    <div class="float-left text-light ml-3 mr-3"><a href="cartAndBuy" class="text-light">Cart/Buyed Product</a></div>
                 </div>
                 <div class="card-body">
                     <div>
-                        <table class="table table-bordered colspan-4">
+                        <table class="table table-bordered colspan-4" th:object="${emp}" th:action="@{/addtocart}">
                             <thead class="bg-primary">
                             <tr class="text-light">
                                 <td class="ml-5 mr-5 text-light">PRODUCT</td>
@@ -138,128 +146,25 @@
                                 <td>REDEEM POINT</td>
                                 <td>STOCK</td>
                                 <td>ADD TO CART</td>
+                                <td><a  th:href="@{/cartAndBuy}" class="btn btn-success">CART</a></td>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td  class="imgsize"><img src="images/product/product1.jpg" ></td>
-                                <td ><p name="productname">Product 1</p></td>
-                                <td><p name="points">50</p></td>
-                                <td><p name="stock">20</p></td>
-                                <td ><button class="btn btn-primary" value="Bye It!" id="Product1" name="Product1"  th:value="Product1"><img src="images/cart.png"></button></td>
-                            </tr>
-                            <tr>
-                                <td class="imgsize"><img src="images/product/product2.jpg"></td>
-                                <td><p name="productname">Product 2</p></td>
-                                <td><p name="points">40</p></td>
-                                <td><p name="stock">20</p></td>
-                                <td ><button class="btn btn-primary" value="Bye It!" id="Product2" name="Product2" th:value="Product2"><img src="images/cart.png"></button></td>
-                            </tr>
-                            <tr>
-                                <td class="imgsize"><img src="images/product/product3.jpg"></td>
-                                <td><p name="productname">Product 3</p></td>
-                                <td><p name="points">60</p></td>
-                                <td><p name="stock">20</p></td>
-                                <td ><button class="btn btn-primary" value="Bye It!" id="Product3" name="Product3" th:value="Product3"><img src="images/cart.png"></button></td>
-                            </tr>
-                            <tr>
-                                <td class="imgsize"><img src="images/product/product4.jpg"></td>
-                                <td><p name="productname">Product 4</p></td>
-                                <td><p name="points">80</p></td>
-                                <td><p name="stock">20</p></td>
-                                <td ><button class="btn btn-primary" value="Bye It!" id="Product4" name="Product4" th:value="Product4"><img src="images/cart.png"></button></td>
-                            </tr>
-                            <tr>
-                                <td class="imgsize"><img src="images/product/product5.jpg" class="productimg" /></td>
-                                <td><p name="productname">Product 5</p></td>
-                                <td><p name="points">70</p></td>
-                                <td><p name="stock">20</p></td>
-                                <td ><button class="btn btn-primary" value="Bye It!" id="Product5" name="Product5" th:value="Product5"><img src="images/cart.png"></button></td>
+                            <tbody th:each="list:${productlist}">
+                            <tr >
+                            <td th:text="${list.id}"></td>
+                            <td th:text="${list.productImage}"></td>
+                            <td th:text="${list.productname}"></td>
+                            <td th:text="${list.pointsToRedeem}"></td>
+                            <td th:text="${list.stock}"></td>
+                                <td><a  th:href="@{/addtocart(id=${list.id})}"><img src="images/cart.png"/></a></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                                <!-- <div id="receivedbadges">
-
-                     <table>
-                         <tr th:each=":${}">
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td><button><img src="images/icons8-trash-32.png"/> </button></td>
-                         </tr>
-                     </table>
-
-
-                 </div>
-
-                 <div id="sharedbadges">
-
-                     <table>
-                         <tr th:each=":${}">
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td><button><img src="images/icons8-trash-32.png"/> </button></td>
-                         </tr>
-                     </table>
-
-
-                 </div>
-
-                 <div id="badgespoints">
-
-                     <table>
-                         <tr th:each=":${}">
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td><button><img src="images/icons8-trash-32.png"/> </button></td>
-                         </tr>
-                     </table>
-
-
-                 </div>
-
-                 <div id="redeempoints">
-
-                     <table>
-                         <tr th:each=":${}">
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td th:text="${}"></td>
-                             <td><button><img src="images/icons8-trash-32.png"/> </button></td>
-                         </tr>
-                     </table>
-
-
-                 </div>-->
-            </div>
+             </div>
         </div>
     </div>
 </div>
-
-
 </div>
 
 </body>
