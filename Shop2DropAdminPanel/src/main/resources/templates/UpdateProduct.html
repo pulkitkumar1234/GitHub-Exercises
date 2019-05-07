@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+<div th:replace="common/header :: navbar" />
+<div class="container">
+    <div class="row">
+        <form class="form-horizontal" th:action="@{/product/updateProduct}" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend class="center-block">
+                    Update Product Information <span style="font-size: small">* is the required Field</span></legend>
+
+                <input hidden="hidden" name="id" th:value="${product.id}" />
+
+                <!--Product Name-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="name" >*Product Name</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="name" th:value="${product.name}" required="required" placeholder="Product Name" name="name" />
+                        <span class="help-block">Name of Product</span>
+                    </div>
+
+                </div>
+
+                <!--Manufacturer-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="manufacturer">*Manufacturer</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="manufacturer" th:value="${product.manufacturer}" required="required" name="manufacturer" placeholder="Manufacturer" />
+                        <span class="help-block">Name of Manufacturer</span>
+                    </div>
+
+                </div>
+
+                <!--Supplier-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="supplier">*Supplier Name</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="supplier" th:value="${product.supplier}" name="supplier" required="required" placeholder="Supplier Name" />
+                        <span class="help-block">Name of Supplier</span>
+                    </div>
+
+                </div>
+
+                <!--ManufacturerDate-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="manufacturerDate">*Manufacturer Date</label>
+                    <div class="col-md-8">
+                        <input type="date" class="form-control" id="manufacturerDate" th:value="${product.manufacturerDate}" name="manufacturerDate" required="required" placeholder="Manufacturer Date" />
+                        <span class="help-block">Manufacturer Date of Product</span>
+                    </div>
+
+                </div>
+
+                <!--productType-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="productType">*Product Type</label>
+                    <div class="col-md-8">
+                        <select th:value="${product.productType}" id="productType" class="form-control" name="productType">
+                            <option value="cloths">Cloths</option>
+                            <option value="books">Books</option>
+                            <option value="vehicle">Vehicle</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="shoes">Shoes</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <!--category-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="category">*Category</label>
+                    <div class="col-md-8">
+                        <select th:value="${product.category}" id="category" class="form-control" name="category">
+                            <option value="" selected="selected" disabled="disabled">Please Select an Option....</option>
+                            <option value="Mens Wear" th:selected="(${product.category}=='Mens Wear')"> Mens Wear</option>
+                            <option value="Womens Wear" th:selected="(${product.category}=='Womens Wear')"> Womens Wear</option>
+                            <option value="Academics Book" th:selected="(${product.category}=='Academics Book')"> Academics Books</option>
+                            <option value="Fictional Book" th:selected="(${product.category}=='Fictional Book')"> Fictional Books</option>
+                            <option value="Two Wheeler" th:selected="(${product.category}=='Two Wheeler')"> Two Wheeler</option>
+                            <option value="Four Wheeler" th:selected="(${product.category}=='Four Wheeler')"> Four Wheeler</option>
+                            <option value="Mobiles" th:selected="(${product.category}=='Mobiles')"> Mobiles</option>
+                            <option value="Laptops" th:selected="(${product.category}=='Laptops')"> Laptops</option>
+                            <option value="Computers" th:selected="(${product.category}=='Computers')"> Computers</option>
+                            <option value="Home Appliance" th:selected="(${product.category}=='Home Appliance')"> Home Appliance</option>
+                            <option value="Casual Shoes" th:selected="(${product.category}=='Casual Shoes')"> Casual Shoes</option>
+                            <option value="Formal Shoes" th:selected="(${product.category}=='Formal Shoes')"> Formal Shoes</option>
+
+                        </select>
+
+                    </div>
+                </div>
+
+                <!--QuantityWeight-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="quantityWeight">*Quantity or Weight</label>
+                    <div class="col-md-8">
+                        <input type="number" class="form-control" id="quantityWeight" th:value="${product.quantityWeight}" name="quantityWeight" placeholder="Quantity or Weight"  step="0.01"/>
+                        <span class="help-block">Quantity or Weight of Product</span>
+                    </div>
+                </div>
+
+                <!--Ingredients or Material-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="ingredientsMaterial">*Ingredients or Material</label>
+                    <div class="col-md-8">
+                        <select th:value="${product.ingredientsMaterial}" id="ingredientsMaterial" class="form-control" name="ingredientsMaterial">
+                            <option value="eatable" >Eatable</option>
+                            <option value="plastic" >Plastic</option>
+                            <option value="metal" >metal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!--isbn-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="isbn">*ISBN</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="isbn" th:value="${product.isbn}" placeholder="ISBN" name="isbn" step="0.01" />
+                        <span class="help-block">ISBN of the Product</span>
+                    </div>
+                </div>
+                <!--Shipping Weight-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="shippingWeight">*Shipping Weight</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="shippingWeight" th:value="${product.shippingWeight}" placeholder="Shipping Weight" name="shippingWeight" step="0.01"/>
+                            <span class="input-group-addon">Ounces</span>
+                        </div>
+                        <span class="help-block">Shipping Weight of Product</span>
+                    </div>
+                </div>
+
+                <!--List Price-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="listPrice">*List Price</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="number" class="form-control" id="listPrice" th:value="${product.listPrice}" name="listPrice" placeholder="List Price" step="0.01" />
+
+                        </div>
+                        <span class="help-block">List Price of Product</span>
+                    </div>
+                </div>
+
+                <!--Our Price-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="ourPrice">*Our Price</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="number" class="form-control" id="ourPrice" th:value="${product.ourPrice}" name="ourPrice" placeholder="Our Price" step="0.01"/>
+
+                        </div>
+                        <span class="help-block">Our Price of Product</span>
+                    </div>
+                </div>
+
+                <!--In Stock Number-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="inStockNumber">*Number in Stock</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="inStockNumber" th:value="${product.inStockNumber}" name="inStockNumber" placeholder="Our Price" />
+                            <span class="help-block">Number of in-stock Product</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Status Of Product-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="status">*Status</label>
+                    <div class="col-md-8">
+                        <div class="col-xs-8" id="status">
+                            <label>
+                                <input value="true" type="radio" name="active" checked="checked"/>
+                                Active
+                            </label>
+                            <label>
+                                <input value="false" type="radio" name="active"  />
+                                InActive
+                            </label>
+                            <span class="help-block" >Whether the Product is Active or InActive</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Description-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="description">*Description</label>
+                    <div class="col-md-8">
+                            <textarea name="description" rows="5" class="form-control" id="description" th:value="${product.description}" th:text="${product.description}"
+                                      placeholder="Description" />
+                        <span class="help-block">Description of the Product</span>
+                    </div>
+                </div>
+
+                <!--Upload Image-->
+                <div class="form-group">
+                    <div>
+                        <label class="col-md-2 control-label" for="productImage">*Upload Product Image</label>
+                    </div>
+
+                    <div class="col-md-8">
+                        <input id="productImage" type="file" name="productImage" th:value="${product.productImage}" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <button type="submit" class="btn btn-success">Update Book</button>
+                        <a class="btn btn-danger" th:href="@{/product/productInfo(id=${product.id})}">Cancel</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+
+<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>
