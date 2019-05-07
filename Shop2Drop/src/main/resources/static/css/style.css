@@ -40,11 +40,7 @@ hr {
 	
 }
 
-.panel-body img{
-	height:200px;
-	border-color:1px solid orange;
-}
- .section-headline {
+.section-headline {
 	font-family: 'Times New Roman', Times, serif;
 	font-size:24px;
 	color: #fff;
@@ -58,4 +54,3 @@ hr {
     padding: 5px 22px;
 	
 }
- 

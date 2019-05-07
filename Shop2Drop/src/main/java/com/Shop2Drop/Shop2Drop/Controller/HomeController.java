@@ -1,9 +1,11 @@
 package com.Shop2Drop.Shop2Drop.Controller;
 
+import com.Shop2Drop.Shop2Drop.entity.Product;
 import com.Shop2Drop.Shop2Drop.entity.Role;
 import com.Shop2Drop.Shop2Drop.entity.User;
 import com.Shop2Drop.Shop2Drop.entity.UserRole;
 import com.Shop2Drop.Shop2Drop.security.PasswordResetToken;
+import com.Shop2Drop.Shop2Drop.service.ProductService;
 import com.Shop2Drop.Shop2Drop.service.UserSecurityService;
 import com.Shop2Drop.Shop2Drop.service.UserService;
 import com.Shop2Drop.Shop2Drop.utility.MailConstructor;
@@ -17,16 +19,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
-import java.util.UUID;
+import javax.websocket.server.PathParam;
+import java.security.Principal;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Controller
@@ -44,10 +43,13 @@ public class HomeController {
 	@Autowired
 	private MailConstructor mailContructor;
 
+	@Autowired
+	private ProductService productService;
 	@RequestMapping("/")
 	public String index() {
 		return "index";
 	}
+
 
 	@RequestMapping("/myProfile")
 	public String myProfile() {
@@ -101,6 +103,13 @@ public class HomeController {
 		return "myAccount";
 	}
 
+	@RequestMapping("/productList")
+	public String productList(Model model)
+	{
+		List<Product> productList=productService.findAll();
+		model.addAttribute("productList",productList);
+		return "ProductList";
+	}
 
 	@RequestMapping("/newUser")
 	public String createAccount(Model model, Locale locale, @RequestParam("token")String token){
@@ -151,6 +160,21 @@ public class HomeController {
 		model.addAttribute("username",username);
 
 		return "myProfile";
+	}
+
+	@RequestMapping("/productDetails")
+	public String productDetails(@PathParam("id") Long id, Model model, Principal principal){
+		if(principal!=null){
+			String username=principal.getName();
+			User user=userService.findByUsername(username);
+			model.addAttribute("user",user);
+		}
+		Product product=productService.findOne(id);
+		model.addAttribute("product",product);
+		List<Integer> qtyList=Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+		model.addAttribute("qtyList",qtyList);
+		model.addAttribute("qty",1);
+		return "ProductDetails";
 	}
 
 }
