@@ -1,10 +1,7 @@
 package com.Shop2Drop.Shop2Drop.service.impl;
 
-import com.Shop2Drop.Shop2Drop.entity.User;
-import com.Shop2Drop.Shop2Drop.entity.UserRole;
-import com.Shop2Drop.Shop2Drop.repository.PasswordResetTokenRepository;
-import com.Shop2Drop.Shop2Drop.repository.RoleRepository;
-import com.Shop2Drop.Shop2Drop.repository.UserRepository;
+import com.Shop2Drop.Shop2Drop.entity.*;
+import com.Shop2Drop.Shop2Drop.repository.*;
 import com.Shop2Drop.Shop2Drop.security.PasswordResetToken;
 import com.Shop2Drop.Shop2Drop.service.UserService;
 import org.slf4j.Logger;
@@ -12,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -27,6 +25,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    UserPaymentRepository userPaymentRepository;
+
+    @Autowired
+    UserShippingRepository userShippingRepository;
+
+
+
     @Override
     public PasswordResetToken getPasswordResetToken(String token) {
         return passwordResetTokenRepository.findByToken(token);
@@ -65,5 +72,53 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user){
         return userRepository.save(user);
+    }
+
+    @Override
+    public void updateUserBilling(UserBilling userBilling, UserPayment userPayment, User user){
+        userPayment.setUser(user);
+        userPayment.setUserBilling(userBilling);
+        userPayment.setDefaultPayment(true);
+        userBilling.setUserPayment(userPayment);
+        user.getUserPaymentList().add(userPayment);
+        save(user);
+    }
+    @Override
+    public void setUserDefaultPayment(Long userPaymentId, User user){
+        List<UserPayment> userPaymentList= (List<UserPayment>) userPaymentRepository.findAll();
+
+        for(UserPayment userPayment:userPaymentList){
+            if(userPayment.getId()==userPaymentId){
+                userPayment.setDefaultPayment(true);
+                userPaymentRepository.save(userPayment);
+            }else {
+                userPayment.setDefaultPayment(false);
+                userPaymentRepository.save(userPayment);
+            }
+        }
+    }
+
+    @Override
+    public void updateUserShipping(UserShipping userShipping, User user){
+
+        userShipping.setUser(user);
+        userShipping.setUserShippingDefault(true);
+        user.getUserShippingList().add(userShipping);
+        save(user);
+
+    }
+    @Override
+    public void setUserDefaultShipping(Long userShippingId,User user){
+        List<UserShipping> userShippingList= (List<UserShipping>) userShippingRepository.findAll();
+
+        for(UserShipping userShipping:userShippingList){
+            if(userShipping.getId()==userShippingId){
+                userShipping.setUserShippingDefault(true);
+                userShippingRepository.save(userShipping);
+            }else {
+                userShipping.setUserShippingDefault(false);
+                userShippingRepository.save(userShipping);
+            }
+        }
     }
 }
