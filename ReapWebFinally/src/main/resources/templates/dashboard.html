@@ -1,11 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{css/styles.css}">
+    <style>
+        #listSearch {
+            display: none;
+            background-color: whitesmoke;
+            width: 200px;
+            position: absolute;
+            z-index: 1;
+            font-size: 14px;
+            overflow-y: auto;
+        }
+    </style>
+    <script>
+        //Setting Values
+        function finalizeSearch(NId) {
+
+            var temp1=document.getElementById(NId).innerText;
+            var temp2=temp1.toString().split("(");
+            var NameOfNewer=temp2[0].trim().toUpperCase();
+
+            document.getElementById("receiverid").value=NId;
+            document.getElementById("receiverName").value=NameOfNewer;
+            document.getElementById("listSearch").style.display="none";
+        }
+    </script>
 </head>
 <body>
 <div class="bg-light rounded ">
@@ -23,10 +48,13 @@
                 <li class="nav-item mr-3">
                     <a class="nav-link active" href="badges"><img src="images/whitebadge.png">Badges</a>
                 </li>
-
-                <li class="nav-item mr-3">
+                <span th:if="isAdmin">
+                    <li class="nav-item mr-3">
                     <a class="nav-link active" href="adminadmin"><img src="images/whitebadge.png">Admin Panel</a>
                 </li>
+
+                </span>
+
                 <li class="nav-item mr-3">
                     <button type="button" data-toggle="modal" data-target="#UserDetails"><img src="images/default_Male.jpg" style="height: 50px"></button>
                 </li>
@@ -73,6 +101,7 @@
         </div>
     </div>
         <!---->
+
     <div class="row mt-4" >
         <div class="col-lg-8">
             <div class="ml-3">
@@ -82,17 +111,22 @@
                         <div class="float-left text-light">RECOGNIZE NEWER</div>
                     </div>
                     <div class="card-body">
-                    <form th:object="${wof}" th:action="@{karma}"  method="post">
+                        <p th:text="${msg}"></p>
+                    <form th:object="${wof}" th:action="@{/karma}"  method="post">
                         <div class="float-left ml-2 mr-5 ui-widget" >
                             <!--<i class=" "></i>-->
                             <input th:field="*{receiverId}" type="text" class="hidden" name="receiverid" id="receiverid">
-                            <input th:field="*{receiverName}" type="text" class="fa fa-user form-control col-20" name="newername" id="receiverName">
+                            <input th:field="*{receiverName}" type="text" placeholder="Type first name to search newer." class="fa fa-user form-control col-20" name="newername" id="receiverName" autocomplete="off" required>
+                            <div id="listSearch">
+
+                            </div>
+
                         </div>
                         <select class="drop" name="badge" id="badge" th:field="*{badgeType}">
                             <option value="badgetype">Select Badge</option>
-                            <option value="1"><b>Gold(</b><b th:text="${emp.shareableGoldBadgeCount}">2</b><b>)</b></option>
-                            <option value="2"><b>Silver(</b><b th:text="${emp.shareableSilverBadgeCount}">4</b><b>)</b></option>
-                            <option value="3"><b>Silver(</b><b th:text="${emp.shareableBronzeBadgeCount}">4</b><b>)</b></option>
+                            <option value="gold"><b>Gold(</b><b th:text="${emp.shareableGoldBadgeCount}">2</b><b>)</b></option>
+                            <option value="silver"><b>Silver(</b><b th:text="${emp.shareableSilverBadgeCount}">4</b><b>)</b></option>
+                            <option value="bronze"><b>Silver(</b><b th:text="${emp.shareableBronzeBadgeCount}">4</b><b>)</b></option>
                         </select>
                         <select class="drop" name="karma" id="karma" th:field="*{karma}">
                             <option value="karmatype">Select a Karma</option>
@@ -187,7 +221,22 @@
                             </div>
 
                             <div>
-                                <button type="button" data-toggle="modal" data-target="#downloadcsv" class="ml-3"><img src="images/download.png" /></button>
+                                <button type="button" class="ml-3"><img src="images/calendericon.png" /></button>
+                                <!----------------------------------------------------------------------------------->
+                                <select class="drop" name="downloadcsv" id="downloadcsv">
+                                    <option> <a id="downloadToday" th:href="@{/downloadCSV/today}" class="dropdown-item"
+                                                style="text-transform: initial;">Today</a></option>
+                                    <option><a id="downloadYesterday" th:href="@{/downloadCSV/yesterday}" class="dropdown-item"
+                                               style="text-transform: initial;">Yesterday</a></option>
+                                    <option><a id="downloadLast7Days" th:href="@{/downloadCSV/last7}" class="dropdown-item"
+                                               style="text-transform: initial;">Last 7 days</a></option>
+                                    <option><a id="downloadLast30Days" th:href="@{/downloadCSV/last30}" class="dropdown-item"
+                                               style="text-transform: initial;">Last 30 days</a></option>
+                                </select>
+
+                                <!----------------------------------------------------------------------->
+
+
                             </div>
                         </div>
                         <div class="card-body">
@@ -197,11 +246,13 @@
                                         <form>
                                             <table class="table">
                                                 <tr>
-                                                    <td><img class="d-flex mr-3"src="images/default_Male.jpg" style="height: 50px"></td>
+                                                    <td><img class="d-flex mr-3" th:src="@{${emp.imagepath}}" style="height: 50px"></td>
                                                     <td>
-                                                        <span th:text="${fame.giverName}" ></span>
+                                                        <a  th:href="@{/badges(id=${fame.giverId})}"><span th:text="${fame.giverName}" ></span></a>
+                                                       <!-- <span th:text="${fame.giverName}" ></span>-->
                                                         <span> recognize </span>
-                                                        <span th:text="${fame.receiverName}" ></span>
+                                                        <a  th:href="@{/badges(id=${fame.receiverId})}"><span th:text="${fame.receiverName}" ></span></span></a>
+                                                        <!--<span th:text="${fame.receiverName}" ></span>-->
                                                         <span> by </span>
                                                         <span th:text="${fame.badgeType}" ></span>
                                                         <span> badge for reason </span>
@@ -209,7 +260,7 @@
                                                         <span> and for karma </span>
                                                         <span th:text="${fame.karma}" ></span>
                                                         <span> on </span>
-                                                        <span th:text="${fame.givenDateAndTime}" ></span>
+                                                        <span th:text="${fame.givenDateTime}" ></span>
                                                     </td>
                                                     <td>
                                                         <a  th:href="@{/deletewalloffame(id=${fame.id})}"><img src="images/icons8-trash-32.png"/></a>
@@ -228,6 +279,8 @@
             <div >
             </div>
         </div>
+
+
         <!--Modal for delete wall of fame-->
         <div class="deletewalloffameform">
             <form  th:action="@{/deletewalloffame}" method="post">
@@ -305,7 +358,7 @@
                         <div class="media-body" >
                             <div>
                                 <div class="float-left">
-                                    <img class="d-flex mr-3"src="images/default_Male.jpg" style="height: 50px">
+                                    <img class="d-flex mr-3" th:src="@{${emp.imagepath}}" style="height: 50px">
                                 </div>
                                 <div class="float-left">
                                     <div >
@@ -344,11 +397,12 @@
                         <div class="media-body" >
                             <div th:each="last :${lastsevendays}">
                                 <div class="float-left mt-3" >
-                                    <img class="d-flex mr-3"src="images/default_Male.jpg" style="height: 50px">
+                                    <img class="d-flex mr-3" th:src="@{${emp.imagepath}}" style="height: 50px">
                                 </div>
                                 <div class="float-left mt-3">
                                     <div >
-                                        <span class="mr-2" th:text="${last.firstname}">Pulkit</span><span class="mr-2" th:text="${last.lastname}">Kumar</span>
+                                        <a  th:href="@{/badges(id=${last.id})}"><span class="mr-2" th:text="${last.firstname}">Pulkit</span><span class="mr-2" th:text="${last.lastname}">Kumar</span></span></a>
+                                        <!--<span class="mr-2" th:text="${last.firstname}">Pulkit</span><span class="mr-2" th:text="${last.lastname}">Kumar</span>-->
                                     </div>
                                     <div class="float-left">
                                         <img src="images/OrangeBadge.png" class="mr-3">
@@ -362,6 +416,7 @@
                                         <span class="col-xs-3 mr-3" th:text="${last.receivedBronzeBadgeCount}"></span>
                                     </div>
                                 </div>
+
                             </div>
 
                         </div>
@@ -374,6 +429,7 @@
         </div>
     </div>
 </div>
+
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -388,6 +444,41 @@
         integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="
         crossorigin="anonymous"></scriptString>
 <script th:src="@{js/javascript.js}" type="application/javascript"></script>
-<script th:src="@{js/searchusers.js}" type="application/javascript"></script>
-<script th:src="@{js/modal.js}" type="application/javascript"></script>
+<script th:src="@{js/Script.js}" type="application/javascript"></script>
+<script>
+    $(document).ready(function(){
+
+        //Getting Newer List
+        $("#receiverName").keyup(function(){
+
+            //TextBox data
+            var typedName=$("#receiverName").val();
+
+            $.ajax({
+                url: "/fetchUserByName",
+                data: {uData: typedName},
+                success: function(result){
+
+                    //Preparing UI
+                    if(typedName.length==0) {
+                        $("#listSearch").hide();
+                        $("#listSearch").text("Start typing name to see search result");
+                    } else {
+
+                        var temp1=result.toString().replace("[","");
+                        var temp2=temp1.toString().replace("]","");
+                        var valSet=temp2.toString().split(",");
+
+                        $("#listSearch").html(valSet);
+                        $("#listSearch").show();
+                    }
+
+            }});
+
+        });
+    });
+
+
+</script>
+
 </html>

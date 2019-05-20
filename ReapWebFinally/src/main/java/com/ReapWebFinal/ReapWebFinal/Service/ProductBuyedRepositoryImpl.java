@@ -14,15 +14,11 @@ public class ProductBuyedRepositoryImpl {
     @Autowired
     ProductBuyedRepository productBuyedRepository;
 
-    public List<ProductBuyed> allBuyedProduct(){
+    public List<ProductBuyed> allBuyedProduct(Integer id){
+        return productBuyedRepository.findAllByProductOwnerId(id);
+    }
 
-        Iterable<ProductBuyed> productBuyedIterable=productBuyedRepository.findAll();
-
-        List<ProductBuyed> productBuyeds=new ArrayList<>();
-        for(ProductBuyed i: productBuyedIterable)
-            productBuyeds.add(i);
-
-        return productBuyeds;
-
+    public ProductBuyed saveBuyedProduct(ProductBuyed productBuyed){
+       return productBuyedRepository.save(productBuyed);
     }
 }

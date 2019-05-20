@@ -51,4 +51,24 @@ public class EmailServiceImpl  {
         javaMailSender.send(mailMessage);
     }
 
+    public void badgesRevokedToGiver(Employee employee) throws MailException{
+        SimpleMailMessage mailMessage=new SimpleMailMessage();
+        mailMessage.setTo(employee.getEmail());
+        mailMessage.setFrom("pulkitkumar241@gmail.com");
+        mailMessage.setSubject("Badges Revoked which You Have Shared");
+        mailMessage.setText("Reason for Revoking The Badges");
+        javaMailSender.send(mailMessage);
+    }
+
+    public void badgesRevokedToReceiver(Employee employee) throws MailException{
+        SimpleMailMessage mailMessage=new SimpleMailMessage();
+        mailMessage.setTo(employee.getEmail());
+        mailMessage.setFrom("pulkitkumar241@gmail.com");
+        mailMessage.setSubject("Badges Revoked which You Have Got");
+        mailMessage.setText("Reason for Revoking The Badges");
+        javaMailSender.send(mailMessage);
+    }
+
+
+
 }

@@ -130,10 +130,11 @@
 
                                 </td>
                                 <td>CLICK TO UPDATE</td>
+                                <td><a href="" class="text-light" >CSV</a></td>
                             </thead>
                             <tbody th:each="empl :${emp}">
                             <tr>
-                                <td th:text="${empl.Id}" class="hidden"></td>
+                                <td th:text="${empl.id}" class="hidden"></td>
                                 <td>
                                     <span th:text="${empl.firstname}"></span>
                                     <span th:text="${empl.lastname}"></span>
@@ -143,24 +144,28 @@
                                         <option value="User">User</option>
                                         <option value="Supervisor">Supervisor</option>
                                         <option value="Practice Head">Practice Head</option>
+                                        <option value="Admin">Admin</option>
                                     </select>
 
                                 </td>
                                 <td><input type="checkbox" name="active" th:checked="${empl.getActive()} ? 'checked'"/>
                                 </td>
                                 <td th:text="${empl.email}"></td>
-                                <td ><input class="col-5" type="text" name="pointtoused" id="pointtoused" th:value="${empl.pointsLeftztoUse}"></td>
-                                <td ><input class="col-5" type="text" name="pointsused" id="pointsused" th:value="${empl.pointUsed}"></td>
-                                <td ><input class="col-5" type="text" name="goldscount" id="goldscount" th:value="${empl.receivedGoldCount}"></td>
-                                <td ><input class="col-5" type="text" name="silverspoint" id="silverspoint" th:value="${empl.receivedSilverBadgeCount}" ></td>
-                                <td ><input class="col-5" type="text" name="bronzepoint" id="bronzepoint" th:value="${empl.receivedBronzeBadgeCount}"></td>
+                                <td ><input class="col-10" type="number" name="pointtoused" id="pointtoused" th:value="${empl.pointsLeftztoUse}"></td>
+                                <td ><input class="col-10" type="number" name="pointsused" id="pointsused" th:value="${empl.pointUsed}"></td>
+                                <td ><input class="col-10" type="number" name="goldscount" id="goldscount" th:value="${empl.receivedGoldCount}"></td>
+                                <td ><input class="col-10" type="number" name="silverspoint" id="silverspoint" th:value="${empl.receivedSilverBadgeCount}" ></td>
+                                <td ><input class="col-10" type="number" name="bronzepoint" id="bronzepoint" th:value="${empl.receivedBronzeBadgeCount}"></td>
                                 <td>
-                                    <a  th:href="@{/updateemployee(id=${empl.id})}">UPDATE</a>
+                                    <a  th:href="@{/updateemployee(${empl})}">UPDATE</a>
+
+                                   <!---Uable to Get Id-->
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
+
 
                 </div>
                 <!--MODAL-->

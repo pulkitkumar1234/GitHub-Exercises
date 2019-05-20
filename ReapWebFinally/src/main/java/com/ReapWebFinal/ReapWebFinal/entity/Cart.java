@@ -94,4 +94,16 @@ public class Cart {
         this.cartOwnerId = cartOwnerId;
     }
 
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", productImage='" + productImage + '\'' +
+                ", multipartProductImageFile=" + multipartProductImageFile +
+                ", productname='" + productname + '\'' +
+                ", pointsUsedToRedeem=" + pointsUsedToRedeem +
+                ", cartOwnerId=" + cartOwnerId +
+                '}';
+    }
 }

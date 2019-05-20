@@ -15,7 +15,7 @@ public class ProductBuyed {
     MultipartFile multipartProductImageFile;
     String productname;
     Integer pointToRedeem;
-    Integer ProductOwnerId;
+    Integer productOwnerId;
 
 
     public ProductBuyed() {
@@ -28,7 +28,7 @@ public class ProductBuyed {
         this.productname = productname;
         this.pointToRedeem = pointsRedeemed;
         this.productId = productId;
-        ProductOwnerId = productOwnerId;
+        productOwnerId = productOwnerId;
     }
 
     public Integer getId() {
@@ -78,11 +78,11 @@ public class ProductBuyed {
         this.productId = productId;
     }
     public Integer getProductOwnerId() {
-        return ProductOwnerId;
+        return productOwnerId;
     }
 
     public void setProductOwnerId(Integer productOwnerId) {
-        ProductOwnerId = productOwnerId;
+        productOwnerId = productOwnerId;
     }
 
 }

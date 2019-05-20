@@ -17,7 +17,7 @@ public class WallOfFame {
     String reason;
     String karma;
     String badgeType;
-    Date givenDateAndTime;
+    Date givenDateTime;
 
     public String getBadgeType() {
         return badgeType;
@@ -27,7 +27,7 @@ public class WallOfFame {
         this.badgeType = badgeType;
     }
 
-   /* public WallOfFame(String giverName, String receiverName, Integer giverId, Integer receiverId, String reason, String karma, String badgeType, Date givenDateAndTime) {
+    public WallOfFame(String giverName, String receiverName, Integer giverId, Integer receiverId, String reason, String karma, String badgeType, Date givenDateTime) {
         this.giverName = giverName;
         this.receiverName = receiverName;
         this.giverId = giverId;
@@ -35,8 +35,8 @@ public class WallOfFame {
         this.reason = reason;
         this.karma = karma;
         this.badgeType = badgeType;
-        this.givenDateAndTime = givenDateAndTime;
-    }*/
+        this.givenDateTime = givenDateTime;
+    }
 
     public Integer getId() {
         return id;
@@ -96,12 +96,12 @@ public class WallOfFame {
 
 
 
-    public Date getGivenDateAndTime() {
-        return givenDateAndTime;
+    public Date getGivenDateTime() {
+        return givenDateTime;
     }
 
     public void setGivenDateAndTime(Date givenDateAndTime) {
-        this.givenDateAndTime = givenDateAndTime;
+        this.givenDateTime = givenDateAndTime;
     }
 
     public WallOfFame() {

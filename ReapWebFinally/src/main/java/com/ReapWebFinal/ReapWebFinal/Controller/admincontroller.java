@@ -1,11 +1,8 @@
 package com.ReapWebFinal.ReapWebFinal.Controller;
 
-import com.ReapWebFinal.ReapWebFinal.Service.EmailServiceImpl;
-import com.ReapWebFinal.ReapWebFinal.Service.EmployeeService;
-import com.ReapWebFinal.ReapWebFinal.Service.WallOfFameService;
-import com.ReapWebFinal.ReapWebFinal.entity.Employee;
-import com.ReapWebFinal.ReapWebFinal.exception.ZeroBadgeException;
-import jdk.nashorn.internal.objects.annotations.Getter;
+import com.ReapWebFinal.ReapWebFinal.Service.*;
+import com.ReapWebFinal.ReapWebFinal.entity.*;
+import com.ReapWebFinal.ReapWebFinal.exception.GeneralException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +21,20 @@ public class admincontroller {
 
     @Autowired
     EmailServiceImpl emailService;
+
+    @Autowired
+    ProductListImpl productListimpl;
+
+    @Autowired
+    CartRepositoryImpl cartRepositoryimpl;
+
+    @Autowired
+    ProductBuyedRepositoryImpl productBuyedRepositoryimpl;
+
+
+
     @RequestMapping(value = "/adminadmin", method = RequestMethod.GET)
-    public ModelAndView admin(HttpSession httpSession) throws ZeroBadgeException {
+    public ModelAndView admin(HttpSession httpSession) throws GeneralException {
         Employee employees = (Employee) httpSession.getAttribute("employees");
         ModelAndView modelAndView = new ModelAndView();
         if (employees == null) {
@@ -40,7 +49,7 @@ public class admincontroller {
     }
 
     @RequestMapping(value = "/adminadmin", method = RequestMethod.POST)
-    public ModelAndView adminpost(HttpSession httpSession) throws ZeroBadgeException {
+    public ModelAndView adminpost(HttpSession httpSession) throws GeneralException {
         Employee employees = (Employee) httpSession.getAttribute("employees");
         ModelAndView modelAndView = new ModelAndView();
         if (employees == null) {
@@ -55,22 +64,49 @@ public class admincontroller {
     }
 
     @GetMapping("/deletewalloffame")
-    public String deletewalloffame(@RequestParam Integer id){
+    public String deletewalloffame(@RequestParam Integer id,HttpSession httpSession) throws GeneralException {
+
+        Employee employees = (Employee) httpSession.getAttribute("employees");
+        ModelAndView modelAndView = new ModelAndView();
+        if (employees == null) {
+            modelAndView.addObject("msg", "Please login first!!!!");
+            modelAndView.setViewName("redirect:login");
+            //return modelAndView;
+        }
+        Employee employee= employeeService.findEmployeeById(id);
+        Employee employee1=employeeService.findEmployeeById(employees.getId());
+
+        emailService.badgesRevokedToGiver(employee1);
+        emailService.badgesRevokedToReceiver(employee);
+
+
         wallOfFameService.deletewalloffame(id);
+        emailService.badgesRevokedToGiver(employee);
         return "redirect:/dashboard";
 
     }
 
     @GetMapping("/updateemployee")
-    public String updateemp(@RequestParam Integer id) throws ZeroBadgeException {
-        Employee employee=employeeService.findEmployeeById(id);
+    public String updateemp(@ModelAttribute Employee employee,HttpSession httpSession) throws GeneralException {
+        Employee employeeLogged = (Employee) httpSession.getAttribute("employees");
+        if (employeeLogged == null) {
+            return "redirect:/login";
+        }
+
+
+        Employee employeeToUpdate = employeeService.findEmployeeById(employee.getId());
+        employeeToUpdate.setId(employee.getId());
+        employeeToUpdate.setPointsLeftztoUse(employee.getPointsLeftztoUse());
+        employeeToUpdate.setPointUsed(employee.getPointUsed());
+        employeeToUpdate.setReceivedGoldCount(employee.getReceivedGoldCount());
+        employeeToUpdate.setReceivedSilverBadgeCount(employee.getReceivedSilverBadgeCount());
+        employeeToUpdate.setReceivedBronzeBadgeCount(employee.getReceivedBronzeBadgeCount());
+        employeeToUpdate.setActive(employee.getActive());
         employeeService.saveEmp(employee);
         return "redirect:/adminadmin";
 
     }
-    /*@RequestMapping(value = "/findOne", method = RequestMethod.GET)
-    @ResponseBody
-    public Employee findOne(Integer id) throws ZeroBadgeException {
-        return employeeService.findEmployeeById(id);
-    }*/
+
+
+
 }

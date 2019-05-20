@@ -1,18 +1,12 @@
 package com.ReapWebFinal.ReapWebFinal.Service;
 
 import com.ReapWebFinal.ReapWebFinal.entity.Employee;
-import com.ReapWebFinal.ReapWebFinal.exception.ZeroBadgeException;
+import com.ReapWebFinal.ReapWebFinal.exception.GeneralException;
+import com.ReapWebFinal.ReapWebFinal.exception.UserNotFoundException;
 import com.ReapWebFinal.ReapWebFinal.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,11 +17,11 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-   public Employee findEmployee(String email) throws ZeroBadgeException {
+   public Employee findEmployee(String email) throws GeneralException {
          Optional<Employee> employee=employeeRepository.findAllByEmail(email);
          Employee employee1=employee.orElse(null);
          if (employee1==null){
-             throw new ZeroBadgeException();
+             throw new GeneralException();
          }
          return employee1;
     }
@@ -41,165 +35,135 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public boolean updateReceivedGold(int id) {
+    public boolean updateReceivedGold(int id) throws GeneralException {
 
 
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("UpdateReceivedGoldBadgesApi");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
-
-        CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
-        CriteriaQuery<Employee> criteriaQuery=criteriaBuilder.createQuery(Employee.class);
-        Root<Employee> employeeRoot=criteriaQuery.from(Employee.class);
-
-        criteriaQuery.where(criteriaBuilder.equal(employeeRoot.get("id"),id));
-        TypedQuery<Employee> query=entityManager.createQuery(criteriaQuery);
-        Employee employee=query.getSingleResult();
-
-
-        employee.setReceivedGoldCount(employee.getReceivedGoldCount()+1);
-        employee.setTotalGoldPoint(employee.getTotalGoldPoint()+30);
-        entityManager.getTransaction().commit();
-
+        Optional<Employee> employee=employeeRepository.findById(id);
+        Employee employee1=employee.orElse(null);
+        if (employee1==null){
+            throw new UserNotFoundException("No User Available");
+        }
+        int goldCount=employee1.getReceivedGoldCount();
+        employee1.setReceivedGoldCount(goldCount+1);
+        employeeRepository.save(employee1);
         return true;
 
     }
 
     //@Modifying
-    public boolean updateReceivedSilver(int id) {
+    public boolean updateReceivedSilver(int id) throws GeneralException {
 
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("UpdateReceivedGoldBadgesApi");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
-
-        CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
-        CriteriaQuery<Employee> criteriaQuery=criteriaBuilder.createQuery(Employee.class);
-        Root<Employee> employeeRoot=criteriaQuery.from(Employee.class);
-
-        criteriaQuery.where(criteriaBuilder.equal(employeeRoot.get("id"),id));
-        TypedQuery<Employee> query=entityManager.createQuery(criteriaQuery);
-        Employee employee=query.getSingleResult();
-
-
-        employee.setReceivedGoldCount(employee.getReceivedSilverBadgeCount()+1);
-        employee.setTotalSilverPoint(employee.getTotalSilverPoint()+20);
-        entityManager.getTransaction().commit();
-
+        Optional<Employee> employee=employeeRepository.findById(id);
+        Employee employee1=employee.orElse(null);
+        if (employee1==null){
+            throw new UserNotFoundException("No User Available");
+        }
+        int silvercount=employee1.getReceivedSilverBadgeCount();
+        employee1.setReceivedSilverBadgeCount(silvercount+1);
+        employeeRepository.save(employee1);
         return true;
 
     }
     //@Modifying
-    public boolean updateReceivedBronze(int id) {
+    public boolean updateReceivedBronze(int id) throws GeneralException {
 
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("UpdateReceivedGoldBadgesApi");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
-
-        CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
-        CriteriaQuery<Employee> criteriaQuery=criteriaBuilder.createQuery(Employee.class);
-        Root<Employee> employeeRoot=criteriaQuery.from(Employee.class);
-
-        criteriaQuery.where(criteriaBuilder.equal(employeeRoot.get("id"),id));
-        TypedQuery<Employee> query=entityManager.createQuery(criteriaQuery);
-        Employee employee=query.getSingleResult();
-
-
-        employee.setReceivedBronzeBadgeCount(employee.getReceivedBronzeBadgeCount()+1);
-        employee.setTotalBronzePoint(employee.getTotalBronzePoint()+10);
-        entityManager.getTransaction().commit();
-
+        Optional<Employee> employee=employeeRepository.findById(id);
+        Employee employee1=employee.orElse(null);
+        if (employee1==null){
+            throw new UserNotFoundException("No User Availabl");
+        }
+        int bronzeBadgeCount=employee1.getReceivedBronzeBadgeCount();
+        employee1.setReceivedBronzeBadgeCount(bronzeBadgeCount+1);
+        employeeRepository.save(employee1);
         return true;
+
     }
 
 
 
+    public boolean updateRemainingGold(Integer id) throws GeneralException {
+
+        Optional<Employee> employee = employeeRepository.findById(id);
+        Employee employee1 = employee.orElse(null);
+        if (employee1 == null) {
+            throw new UserNotFoundException("No User Availabl");
+        }
+
+        int goldBadgeCount = employee1.getShareableGoldBadgeCount();
+        //System.out.println("Employyee :"+ goldBadgeCount);
+        if (goldBadgeCount > 0){
+            employee1.setShareableGoldBadgeCount(goldBadgeCount - 1);
+        employeeRepository.save(employee1);
+        System.out.println("EMPLOYEE:" + employee1.toString());
+        return true;
+    }
+        else {
+           return false;
+        }
+
+    }
+
+    //@Modifying
+    public boolean updateRemainingSilver(int id) throws GeneralException {
 
 
-    public boolean updateRemainingGold(int id) {
+        Optional<Employee> employee=employeeRepository.findById(id);
+        Employee employee1=employee.orElse(null);
+        if (employee1==null){
+            throw new UserNotFoundException("No User Availabl");
+        }
+
+        int shareableSilverBadgeCount =employee1.getShareableSilverBadgeCount();
+        if (shareableSilverBadgeCount == 0){
+            employee1.setShareableSilverBadgeCount(shareableSilverBadgeCount - 1);
+            employeeRepository.save(employee1);
+            return true;
+        }
+
+        else {
+                return false;
+        }
 
 
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("UpdateReceivedGoldBadgesApi");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
-
-        CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
-        CriteriaQuery<Employee> criteriaQuery=criteriaBuilder.createQuery(Employee.class);
-        Root<Employee> employeeRoot=criteriaQuery.from(Employee.class);
-
-        criteriaQuery.where(criteriaBuilder.equal(employeeRoot.get("id"),id));
-        TypedQuery<Employee> query=entityManager.createQuery(criteriaQuery);
-        Employee employee=query.getSingleResult();
+    }
+    //@Modifying
+    public boolean updateRemainingBronze(int id) throws GeneralException {
 
 
-        int val = employee.getShareableGoldBadgeCount();
-        if (val == 0)
+        Optional<Employee> employee=employeeRepository.findById(id);
+        Employee employee1=employee.orElse(null);
+        if (employee1==null){
+            throw new UserNotFoundException("No User Available");
+        }
+
+        int bronzeBadgeCount=employee1.getShareableBronzeBadgeCount();
+        if (bronzeBadgeCount == 0){
+            employee1.setShareableBronzeBadgeCount(bronzeBadgeCount - 1);
+            employeeRepository.save(employee1);
+            return true;
+        }
+
+        else {
             return false;
-        employee.setShareableGoldBadgeCount(val - 1);
-        entityManager.getTransaction().commit();
-
-        return true;
+        }
 
     }
 
-    //@Modifying
-    public boolean updateRemainingSilver(int id) {
-
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("UpdateReceivedGoldBadgesApi");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
-
-        CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
-        CriteriaQuery<Employee> criteriaQuery=criteriaBuilder.createQuery(Employee.class);
-        Root<Employee> employeeRoot=criteriaQuery.from(Employee.class);
-
-        criteriaQuery.where(criteriaBuilder.equal(employeeRoot.get("id"),id));
-        TypedQuery<Employee> query=entityManager.createQuery(criteriaQuery);
-        Employee employee=query.getSingleResult();
-
-
-        int val = employee.getShareableSilverBadgeCount();
-        if (val == 0)
-            return false;
-        employee.setShareableSilverBadgeCount(val - 1);
-        entityManager.getTransaction().commit();
-
-        return true;
-
-    }
-    //@Modifying
-    public boolean updateRemainingBronze(int id) {
-
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("UpdateReceivedGoldBadgesApi");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
-
-        CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
-        CriteriaQuery<Employee> criteriaQuery=criteriaBuilder.createQuery(Employee.class);
-        Root<Employee> employeeRoot=criteriaQuery.from(Employee.class);
-
-        criteriaQuery.where(criteriaBuilder.equal(employeeRoot.get("id"),id));
-        TypedQuery<Employee> query=entityManager.createQuery(criteriaQuery);
-        Employee employee=query.getSingleResult();
-
-
-        int val = employee.getShareableBronzeBadgeCount();
-        if (val == 0)
-            return false;
-        employee.setShareableBronzeBadgeCount(val - 1);
-        entityManager.getTransaction().commit();
-
-        return true;
-    }
-
-        public Employee  getReceivedBadgesOfEmployee(String email) throws ZeroBadgeException {
+        public Employee  getReceivedBadgesOfEmployee(String email) throws GeneralException {
             Optional<Employee> employee=employeeRepository.findAllByEmail(email);
             Employee employee1=employee.orElse(null);
             if (employee1==null){
-                throw new ZeroBadgeException();
+                throw new UserNotFoundException("No User Available");
             }
             return employee1;
 
         }
 
-        public Employee getRemainingBadgesOfEmployee(String email) throws ZeroBadgeException {
+        public Employee getRemainingBadgesOfEmployee(String email) throws GeneralException {
             Optional<Employee> employee=employeeRepository.findAllByEmail(email);
             Employee employee1=employee.orElse(null);
             if (employee1==null){
-                throw new ZeroBadgeException();
+                throw new UserNotFoundException("No User Available");
             }
             return employee1;
 
@@ -226,11 +190,11 @@ public class EmployeeService {
         return employees;
     }
 
-   public Employee findEmployeeById(Integer id) throws ZeroBadgeException {
+   public Employee findEmployeeById(Integer id) throws GeneralException {
         Optional<Employee> employee=employeeRepository.findById(id);
         Employee employee1=employee.orElse(null);
         if (employee1==null){
-            throw new ZeroBadgeException();
+            //throw new GeneralException();
         }
         return employee1;
     }
@@ -238,5 +202,22 @@ public class EmployeeService {
 
     public void saveEmp(Employee employee){
         employeeRepository.save(employee);
+    }
+
+    public Optional<Employee> findUserByEmail(String email){
+        return employeeRepository.findAllByEmail(email);
+    }
+
+    public void save(Employee employee){
+        employeeRepository.save(employee);
+    }
+
+    public List<Employee> findAllEmployee(){
+      Iterable<Employee> iterable= employeeRepository.findAll();
+      List<Employee> employeeList=new ArrayList<>();
+        for(Employee i: iterable)
+            employeeList.add(i);
+
+        return employeeList;
     }
 }

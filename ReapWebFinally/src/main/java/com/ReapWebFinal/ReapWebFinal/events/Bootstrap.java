@@ -28,6 +28,7 @@ public class Bootstrap {
    ProductBuyedRepository productBuyedRepository;
 
     @EventListener(ApplicationStartedEvent.class)
+
     void setUp(){
         if(!employeeRepository.findAll().iterator().hasNext()) {
             IntStream.range(0, 10).forEach(e -> {
@@ -36,7 +37,7 @@ public class Bootstrap {
                 employee.setLastname("Lastname"+e);
                 employee.setEmail(e+"kk@tothenew.com");
                 employee.setPassword(e+"123");
-                employee.setImagepath("images/profile"+e);
+                employee.setImagepath("/images/profiles/default_Male.jpg");
                 employee.setActive(true);
                 employeeRepository.save(employee);
             });
@@ -63,7 +64,7 @@ public class Bootstrap {
 
             IntStream.range(0, 5).forEach(e -> {
                 ProductList productList = new ProductList();
-                productList.setProductImage("images/product/");
+                productList.setProductImage("/image/product1/");
                 productList.setProductname("Product "+e);
                 productList.setPointsToRedeem(49+e);
                 productList.setStock(9+e);
@@ -77,7 +78,7 @@ public class Bootstrap {
             IntStream.range(0, 5).forEach(e -> {
                 Cart cart = new Cart();
                cart.setProductId(e+1);
-               cart.setProductImage("/image/product");
+               cart.setProductImage("/image/product1/");
                cart.setProductname("Product "+e);
                cart.setPointsToRedeem(49+e);
                cart.setCartOwnerId(e+1);
@@ -92,7 +93,7 @@ public class Bootstrap {
                 ProductBuyed productBuyed = new ProductBuyed();
                 productBuyed.setProductId(e+1);
                 productBuyed.setProductname("Product "+e);
-                productBuyed.setProductImage("/image/product");
+                productBuyed.setProductImage("/image/product1/");
                 productBuyed.setProductOwnerId(e+1);
 
                 productBuyedRepository.save(productBuyed);

@@ -4,6 +4,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity
@@ -11,14 +13,25 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
+    @NotNull
+
     String firstname;
+    @NotNull
+
     String lastname;
+    @NotNull
+
     String email;
+    @NotNull
+
     String password;
     String imagepath;
     Boolean active=true;
+
     @ElementCollection
-    Set<String> roles= new HashSet<>(Arrays.asList("User"));
+    @Enumerated(EnumType.STRING)
+    private Set<Roles> roleSet = new HashSet<>(Arrays.asList(Roles.USER));
+
     @Transient
     MultipartFile multipartFile;
     Integer shareableGoldBadgeCount=1;
@@ -34,30 +47,13 @@ public class Employee {
     Integer pointUsed=0;
     Integer pointsLeftztoUse=0;
 
-   /* public Employee(String firstname, String lastname, String email, String password, String imagepath, Boolean active,List<String> product, MultipartFile multipartFile, Integer shareableGoldBadgeCount, Integer shareableSilverBadgeCount, Integer shareableBronzeBadgeCount, Integer receivedGoldCount, Integer receivedSilverBadgeCount, Integer receivedBronzeBadgeCount, Integer totalGoldPoint, Integer totalSilverPoint, Integer totalBronzePoint, Integer totalPoints, Integer pointUsed, Integer pointsLeftztoUse,Set<String> roles, List<String> cart) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.imagepath = imagepath;
-        this.active = active;
-        Product = product;
-        this.multipartFile = multipartFile;
-        this.shareableGoldBadgeCount = shareableGoldBadgeCount;
-        this.shareableSilverBadgeCount = shareableSilverBadgeCount;
-        this.shareableBronzeBadgeCount = shareableBronzeBadgeCount;
-        this.receivedGoldCount = receivedGoldCount;
-        this.receivedSilverBadgeCount = receivedSilverBadgeCount;
-        this.receivedBronzeBadgeCount = receivedBronzeBadgeCount;
-        this.totalGoldPoint = totalGoldPoint;
-        this.totalSilverPoint = totalSilverPoint;
-        this.totalBronzePoint = totalBronzePoint;
-        this.totalPoints = totalPoints;
-        this.pointUsed = pointUsed;
-        this.pointsLeftztoUse = pointsLeftztoUse;
-        this.roles = roles;
-        this.cart=cart;
-    }*/
+    public Set<Roles> getRoleSet() {
+        return roleSet;
+    }
+
+    public void setRoleSet(Set<Roles> roleSet) {
+        this.roleSet = roleSet;
+    }
 
     public Integer getPointUsed() {
         return pointUsed;
@@ -222,15 +218,32 @@ public class Employee {
         active = active;
     }
 
-    public Set<String> getRoles() {
-        return roles;
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", imagepath='" + imagepath + '\'' +
+                ", active=" + active +
+
+                ", multipartFile=" + multipartFile +
+                ", shareableGoldBadgeCount=" + shareableGoldBadgeCount +
+                ", shareableSilverBadgeCount=" + shareableSilverBadgeCount +
+                ", shareableBronzeBadgeCount=" + shareableBronzeBadgeCount +
+                ", receivedGoldCount=" + receivedGoldCount +
+                ", receivedSilverBadgeCount=" + receivedSilverBadgeCount +
+                ", receivedBronzeBadgeCount=" + receivedBronzeBadgeCount +
+                ", totalGoldPoint=" + totalGoldPoint +
+                ", totalSilverPoint=" + totalSilverPoint +
+                ", totalBronzePoint=" + totalBronzePoint +
+                ", totalPoints=" + totalPoints +
+                ", pointUsed=" + pointUsed +
+                ", pointsLeftztoUse=" + pointsLeftztoUse +
+                '}';
     }
-
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
-
-
-
 }
 

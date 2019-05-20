@@ -32,11 +32,11 @@
             <form th:action="@{/login}" method="post">
                 <div class="form-group">
                     <label for="username">User Name</label>
-                    <input type="text" id="username" name="username" class="form-control form-control-sm" placeholder="Enter Email">
+                    <input type="text" id="username" name="username" value="1kk@tothenew.com" class="form-control form-control-sm" placeholder="Enter Email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-control form-control-sm" placeholder="Enter Password">
+                    <input type="password" id="password" name="password" value="1123" class="form-control form-control-sm" placeholder="Enter Password" required>
                 </div>
                 <div align="center" th:if="${param.error}">
                     <p style="font-size: 20; color: #FF1C19;">User Name/Email or Password is invalid.</p>
@@ -61,12 +61,12 @@
                             <table>
                                 <tr>
                                     <td>Enter Your Email Id:</td>
-                                    <td><input type="email" name="email" id="email" class="form-control form-control-sm" autocomplete="off"> </td>
+                                    <td><input type="email" name="email" id="email" class="form-control form-control-sm" autocomplete="off" required> </td>
                                 </tr>
                                 <tr>
                                     <td><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></td>
                                     <!--<td><a href="/recoverPassword" class="btn btn-primary">Recover</a></td>&lt;!&ndash;&ndash;&gt;-->
-                                    <td><input type="submit" value="Recover" class="btn btn-primary"></td>
+                                    <td><input type="submit" value="Recover" class="btn btn-primary" ></td>
                                 </tr>
                             </table>
                         </form>

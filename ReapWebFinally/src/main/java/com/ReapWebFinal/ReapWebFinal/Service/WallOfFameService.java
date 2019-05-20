@@ -1,15 +1,15 @@
 package com.ReapWebFinal.ReapWebFinal.Service;
 
-import com.ReapWebFinal.ReapWebFinal.entity.Employee;
 import com.ReapWebFinal.ReapWebFinal.entity.WallOfFame;
-import com.ReapWebFinal.ReapWebFinal.exception.ZeroBadgeException;
+import com.ReapWebFinal.ReapWebFinal.exception.GeneralException;
 import com.ReapWebFinal.ReapWebFinal.repository.WallOfFameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WallOfFameService {
@@ -27,24 +27,24 @@ public class WallOfFameService {
                 updateSenderBadgesSuccessfully = employeeService.updateRemainingGold(wallOfFame.getGiverId());
 
                 if (!updateSenderBadgesSuccessfully)
-                    throw new ZeroBadgeException();
+                    throw new GeneralException();
                 employeeService.updateReceivedGold(wallOfFame.getReceiverId());
                 wallOfFameRepository.save(wallOfFame);
             } else if (wallOfFame.getBadgeType().equals("silver")) {
                 updateSenderBadgesSuccessfully = employeeService.updateRemainingSilver(wallOfFame.getGiverId());
                 if (!updateSenderBadgesSuccessfully)
-                    throw new ZeroBadgeException();
+                    throw new GeneralException();
                 employeeService.updateReceivedSilver(wallOfFame.getReceiverId());
                 wallOfFameRepository.save(wallOfFame);
             } else {
                 updateSenderBadgesSuccessfully = employeeService.updateRemainingBronze(wallOfFame.getGiverId());
                 if (!updateSenderBadgesSuccessfully)
-                    throw new ZeroBadgeException();
+                    throw new GeneralException();
                 employeeService.updateReceivedBronze(wallOfFame.getReceiverId());
                 wallOfFameRepository.save(wallOfFame);
             }
             return 1;
-        } catch (ZeroBadgeException e) {
+        } catch (GeneralException e) {
             e.printStackTrace();
             return -1;
         } catch (Exception e) {
@@ -82,4 +82,30 @@ public class WallOfFameService {
    public void deletewalloffame(Integer id){
         wallOfFameRepository.deleteById(id);
    }
-}
+
+   public  WallOfFame findwalloffame(Integer id) throws GeneralException {
+        Optional<WallOfFame> wallOfFame= wallOfFameRepository.findById(id);
+        WallOfFame wallOfFame1=wallOfFame.orElse(null);
+        if(wallOfFame1==null)
+        {
+            throw new GeneralException();
+        }
+        return wallOfFame1;
+   }
+
+    public List<WallOfFame> getRecognitionsBetweenDates(String dateString) {
+            LocalDate today = LocalDate.now();
+            if (dateString.equals("today")){
+                return wallOfFameRepository.findAllByGivenDateTimeBetween(today,today);
+            }
+            else if (dateString.equals("yesterday")){
+                return wallOfFameRepository.findAllByGivenDateTimeBetween(today.minusDays(1),today);
+            }
+            else if (dateString.equals("last7")){
+                return wallOfFameRepository.findAllByGivenDateTimeBetween(today.minusDays(7),today);
+            }else {
+                return wallOfFameRepository.findAllByGivenDateTimeBetween(today.minusDays(30),today);
+            }
+        }
+    }
+
